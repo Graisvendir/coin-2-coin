@@ -96,6 +96,11 @@ services:
         volumes:
             - ../src/:/var/www
             - ./config/nginx/conf.d:/etc/nginx/conf.d/
+        healthcheck:
+            test: curl -f http://localhost/up || exit 1
+            interval: 10s
+            timeout: 5s
+            retries: 5
         networks:
             - app-network
 
