@@ -1,0 +1,5 @@
+# IDE
+.idea
+
+# Project files
+src/app/Console/Commands/TestCommand.php

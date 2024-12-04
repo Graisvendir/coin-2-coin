@@ -1,0 +1,104 @@
+services:
+    app:
+        build:
+            args:
+                user: www
+                uid: 1000
+            context: .
+            dockerfile: Dockerfile
+        image: laravel-app
+        container_name: app
+        restart: unless-stopped
+        working_dir: /var/www/
+        depends_on:
+            - db
+        volumes:
+            - ../src/:/var/www
+        command: php artisan migrate --force
+        networks:
+            - app-network
+
+    app-scheduler-worker:
+        image: laravel-app
+        pull_policy: never
+        container_name: app-scheduler-worker
+        restart: unless-stopped
+        tty: true
+        working_dir: /var/www/
+        depends_on:
+            - app
+            - db
+        volumes:
+            - ../src/:/var/www
+        command: php artisan schedule:work
+        networks:
+            - app-network
+
+    app-queue-default-worker:
+        image: laravel-app
+        pull_policy: never
+        deploy:
+            mode: replicated
+            replicas: 5
+        restart: unless-stopped
+        tty: true
+        working_dir: /var/www/
+        depends_on:
+            - app
+            - db
+        volumes:
+            - ../src/:/var/www
+        command: php artisan queue:work --queue=default --max-time=1800 --timeout=3600
+        networks:
+            - app-network
+
+    db:
+        image: postgres:17.2
+        container_name: db-app
+        restart: unless-stopped
+        environment:
+            POSTGRES_DB: "app"
+            POSTGRES_USER: "user"
+            POSTGRES_PASSWORD: "pass"
+        volumes:
+            - ./postgres/data:/var/lib/postgresql/data
+        ports:
+            - "5432:5432"
+        networks:
+            - app-network
+
+    pgadmin:
+        container_name: pgadmin_container
+        image: dpage/pgadmin4:8.13
+        environment:
+            PGADMIN_DEFAULT_EMAIL: "habrpguser@habr.com"
+            PGADMIN_DEFAULT_PASSWORD: "pgadminpwd4habr"
+            PGADMIN_CONFIG_SERVER_MODE: "False"
+        volumes:
+            - ./postgres/data:/var/lib/postgresql/data
+        ports:
+            - "5050:80"
+        restart: unless-stopped
+        deploy:
+            resources:
+                limits:
+                    cpus: '0.5'
+                    memory: 1G
+        networks:
+            - app-network
+
+    nginx:
+        image: nginx:alpine
+        container_name: webserver-app
+        restart: unless-stopped
+        ports:
+            - "8180:80"
+        volumes:
+            - ../src/:/var/www
+            - ./config/nginx/conf.d:/etc/nginx/conf.d/
+        networks:
+            - app-network
+
+networks:
+    app-network:
+      driver: bridge
