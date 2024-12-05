@@ -3,3 +3,4 @@
 
 # Project files
 src/app/Console/Commands/TestCommand.php
+frontend/node_modules

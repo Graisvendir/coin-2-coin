@@ -1,0 +1,7 @@
+FROM oven/bun:1.1.38-debian
+
+RUN apt update
+
+WORKDIR /app
+
+USER bun

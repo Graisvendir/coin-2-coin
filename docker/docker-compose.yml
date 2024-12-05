@@ -14,7 +14,7 @@ services:
             - db
         volumes:
             - ../src/:/var/www
-        command: php artisan migrate --force
+#        command: php artisan migrate --force
         networks:
             - app-network
 
@@ -104,6 +104,25 @@ services:
         networks:
             - app-network
 
+    frontend:
+        build:
+            context: .
+            dockerfile: Dockerfile-frontend
+        container_name: frontend
+        restart: always
+        working_dir: /app
+        command:
+            - /bin/sh
+            - -c
+            - |
+               bun install 
+               bunx vite --host=0.0.0.0
+        volumes:
+            - ../frontend:/app
+        ports:
+            - "5173:5173"
+        networks:
+            - app-network
 networks:
     app-network:
       driver: bridge
