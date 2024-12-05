@@ -30,7 +30,7 @@ services:
             - db
         volumes:
             - ../src/:/var/www
-        command: php artisan schedule:work
+        entrypoint: php artisan schedule:work
         networks:
             - app-network
 
@@ -66,7 +66,7 @@ services:
             - db
         volumes:
             - ../src/:/var/www
-        command: php artisan queue:work --queue=default --max-time=1800 --timeout=3600
+        entrypoint: php artisan queue:work --queue=default --max-time=1800 --timeout=3600
         networks:
             - app-network
 
