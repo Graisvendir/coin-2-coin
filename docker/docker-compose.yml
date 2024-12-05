@@ -48,7 +48,7 @@ services:
         restart: unless-stopped
         tty: true
         working_dir: /var/www/
-        entrypoint: php artisan octane:start --port=8081
+        entrypoint: php artisan octane:start --port=8081 --workers=${APP_OCTANE_WORKERS:-4}
         expose:
             - 8081
         depends_on:
