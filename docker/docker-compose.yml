@@ -12,9 +12,29 @@ services:
         working_dir: /var/www/
         depends_on:
             - db
+            - app-setup
         volumes:
             - ../src/:/var/www
-#        command: php artisan migrate --force
+        networks:
+            - app-network
+
+    app-setup:
+        image: laravel-app
+        pull_policy: never
+        container_name: app-setup
+        restart: no
+        tty: true
+        working_dir: /var/www/
+        depends_on:
+            - db
+        volumes:
+            - ../src/:/var/www
+        command:
+            - /bin/sh
+            - -c
+            - |
+                composer install
+                php artisan migrate --force
         networks:
             - app-network
 
@@ -26,7 +46,7 @@ services:
         tty: true
         working_dir: /var/www/
         depends_on:
-            - app
+            - app-setup
             - db
         volumes:
             - ../src/:/var/www
@@ -44,7 +64,7 @@ services:
         expose:
             - 8081
         depends_on:
-            - app
+            - app-setup
             - db
         volumes:
             - ../src/:/var/www
@@ -62,7 +82,7 @@ services:
         tty: true
         working_dir: /var/www/
         depends_on:
-            - app
+            - app-setup
             - db
         volumes:
             - ../src/:/var/www
@@ -107,7 +127,7 @@ services:
 
     nginx:
         image: nginx:alpine
-        container_name: webserver-app
+        container_name: app-webserver
         restart: unless-stopped
         ports:
             - "8180:80"
