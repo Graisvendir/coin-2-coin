@@ -2,5 +2,7 @@
 .idea
 
 # Project files
+docker/.env
+!docker/.env.example
 src/app/Console/Commands/TestCommand.php
 frontend/node_modules

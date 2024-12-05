@@ -86,7 +86,7 @@ services:
         entrypoint: php artisan queue:work --queue=default --max-time=1800 --timeout=3600
         deploy:
             mode: replicated
-            replicas: 5
+            replicas: ${LARAVEL_QUEUE_DEFAULT_WORKERS:-1}
         depends_on:
             - app-setup
             - db
@@ -101,9 +101,9 @@ services:
         container_name: db-app
         restart: unless-stopped
         environment:
-            POSTGRES_DB: "app"
-            POSTGRES_USER: "user"
-            POSTGRES_PASSWORD: "pass"
+            POSTGRES_DB: ${POSTGRES_DB}
+            POSTGRES_USER: ${POSTGRES_USER}
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
         volumes:
             - ./postgres/data:/var/lib/postgresql/data
         ports:
@@ -117,8 +117,6 @@ services:
         image: dpage/pgadmin4:8.13
         restart: unless-stopped
         environment:
-            PGADMIN_DEFAULT_EMAIL: "habrpguser@habr.com"
-            PGADMIN_DEFAULT_PASSWORD: "pgadminpwd4habr"
             PGADMIN_CONFIG_SERVER_MODE: "False"
         deploy:
             resources:
@@ -138,8 +136,8 @@ services:
         container_name: app-webserver
         restart: unless-stopped
         ports:
-            - "8180:80"
-            - "8080:8080"
+            - "${APP_PORT:-8180}:80"
+            - "${APP_OCTANE_PORT:-8080}:8080"
         volumes:
             - ../src/:/var/www
             - ./config/nginx/conf.d:/etc/nginx/conf.d/
@@ -168,7 +166,7 @@ services:
         volumes:
             - ../frontend:/app
         ports:
-            - "5173:5173"
+            - "${VITE_PORT:-5173}:5173"
         networks:
             - app-network
 networks:
