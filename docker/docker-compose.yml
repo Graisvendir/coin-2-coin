@@ -34,6 +34,24 @@ services:
         networks:
             - app-network
 
+    app-octane:
+        image: laravel-app
+        pull_policy: never
+        container_name: app-octane
+        restart: unless-stopped
+        tty: true
+        working_dir: /var/www/
+        expose:
+            - 8081
+        depends_on:
+            - app
+            - db
+        volumes:
+            - ../src/:/var/www
+        entrypoint: php artisan octane:start --port=8081
+        networks:
+            - app-network
+
     app-queue-default-worker:
         image: laravel-app
         pull_policy: never
@@ -93,6 +111,7 @@ services:
         restart: unless-stopped
         ports:
             - "8180:80"
+            - "8080:8080"
         volumes:
             - ../src/:/var/www
             - ./config/nginx/conf.d:/etc/nginx/conf.d/
@@ -115,7 +134,7 @@ services:
             - /bin/sh
             - -c
             - |
-               bun install 
+               bun install
                bunx vite --host=0.0.0.0
         volumes:
             - ../frontend:/app
