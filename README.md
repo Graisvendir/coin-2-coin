@@ -18,8 +18,11 @@
 2. сделать `.env` файл в папке `./src`. Можно сделать из файла `.env.example`. Заполнить переменные окружения
 
 ```bash
-cd ./docker && docker compose --profile dev up --build
+cd ./docker
+sudo docker compose --profile dev up --build -d
 ```
+
+Возможно, какие-то порты будут уже заняты в системе. Их надо будет поменять в .env файликах или в docker/docker-compose.yml.
 
 ## TODO Как тут работать с проектом??
 
