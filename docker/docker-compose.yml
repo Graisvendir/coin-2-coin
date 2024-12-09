@@ -160,9 +160,10 @@ services:
             - "${APP_OCTANE_PORT:-8080}:8080"
         volumes:
             - ../src/:/var/www
+            - ../frontend/:/var/front
             - ./config/nginx/conf.d:/etc/nginx/conf.d/
         healthcheck:
-            test: curl -f http://localhost/up || exit 1
+            test: curl -f http://localhost/api/up || exit 1
             interval: 10s
             timeout: 5s
             retries: 5
@@ -185,11 +186,14 @@ services:
             - -c
             - |
                bun install
+               rm -rf ./dist
                bunx vite --host=0.0.0.0
         volumes:
             - ../frontend:/app
         ports:
             - "${VITE_PORT:-5173}:5173"
+        expose:
+            - 5173
         profiles:
             - dev
         networks:
