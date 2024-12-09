@@ -5,6 +5,8 @@
 # Project files
 docker/.env
 !docker/.env.example
-docker/postgres
+src/_ide_helper.php
+src/.phpstorm.meta.php
 src/app/Console/Commands/TestCommand.php
+docker/postgres
 frontend/node_modules
