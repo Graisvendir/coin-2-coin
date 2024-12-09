@@ -3,7 +3,8 @@
 .vscode
 
 # Project files
-docker/.env
+*.env*
+!*.env.example
 !docker/.env.example
 src/_ide_helper.php
 src/.phpstorm.meta.php
