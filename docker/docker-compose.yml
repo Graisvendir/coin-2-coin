@@ -1,26 +1,26 @@
 services:
     # основное приложение с fpm, все остальные (шедулер, очереди, октан) используют его image
-    app:
-        build:
-            args:
-                user: www
-                uid: 1000
-            context: .
-            dockerfile: Dockerfile
-        image: laravel-app
-        container_name: app
-        restart: unless-stopped
-        working_dir: /var/www/
-        depends_on:
-            - db
-            - app-setup
-        volumes:
-            - ../src/:/var/www
-        profiles:
-            - dev
-            - prod
-        networks:
-            - app-network
+#    app:
+#        build:
+#            args:
+#                user: www
+#                uid: 1000
+#            context: .
+#            dockerfile: Dockerfile
+#        image: laravel-app
+#        container_name: app
+#        restart: unless-stopped
+#        working_dir: /var/www/
+#        depends_on:
+#            - db
+#            - app-setup
+#        volumes:
+#            - ../src/:/var/www
+#        profiles:
+#            - dev
+#            - prod
+#        networks:
+#            - app-network
 
     # запуск команд, необходимых для работы приложение - установка пакетов композера, применение миграций и т.д.
     app-setup:
@@ -47,10 +47,15 @@ services:
             - app-network
 
     # копия приложения, запущенная на октане
-    app-octane:
+    app:
+        build:
+            args:
+                user: www
+                uid: 1000
+            context: .
+            dockerfile: Dockerfile
         image: laravel-app
-        pull_policy: never
-        container_name: app-octane
+        container_name: app
         restart: unless-stopped
         tty: true
         working_dir: /var/www/
@@ -156,8 +161,7 @@ services:
         container_name: app-webserver
         restart: unless-stopped
         ports:
-            - "${APP_PORT:-8180}:80"
-            - "${APP_OCTANE_PORT:-8080}:8080"
+            - "${APP_OCTANE_PORT:-8080}:80"
         volumes:
             - ../src/:/var/www
             - ../frontend/:/var/front
