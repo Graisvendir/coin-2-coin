@@ -21,12 +21,15 @@ export const useApiFetch = createFetch({
     baseUrl: import.meta.env.VITE_API_BASE_URL,
     options: {
         async beforeFetch({ options }) {
-            let token = await getToken();
+            const token = await getToken();
 
-            options.headers['Accept'] = 'application/json';
-            options.headers['Content-Type'] = 'application/json';
-            options.headers['X-Requested-With'] = 'XMLHttpRequest';
-            options.headers['X-XSRF-TOKEN'] = token;
+            options.headers = {
+                ...options.headers,
+                Accept: 'application/json',
+                ['Content-Type']: 'application/json',
+                ['X-Requested-With']: 'XMLHttpRequest',
+                ['X-XSRF-TOKEN']: token,
+            };
 
             return { options };
         },
