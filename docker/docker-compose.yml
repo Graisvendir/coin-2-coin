@@ -202,6 +202,17 @@ services:
             - dev
         networks:
             - app-network
+
+    mail:
+        image: mailhog/mailhog:latest
+        restart: always
+        ports:
+            - "${MAILHOG_SMTP_PORT:-1025}:1025"
+            - "${MAILHOG_HTTP_PORT:-8025}:8025"
+        profiles:
+            - dev
+        networks:
+            - app-network
 networks:
     app-network:
       driver: bridge
