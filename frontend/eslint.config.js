@@ -59,6 +59,7 @@ export default typescriptEslint.config(
             "vue/valid-v-if": "error",
             "vue/valid-v-model": "error",
             "vue/valid-v-else-if": "error",
+            "vue/multi-word-component-names": "off",
 
             "vue/first-attribute-linebreak": ["error", {
                 singleline: "ignore",

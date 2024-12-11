@@ -1,8 +1,9 @@
 import {createFetch, useFetch} from '@vueuse/core';
 import {useCookies} from 'vue3-cookies';
+import {backendApiBaseUrl} from '~/shared/config';
 
 export async function refreshCsrfToken() {
-    await useFetch(import.meta.env.VITE_BASE_API_URL + '/sanctum/csrf-cookie').get().json();
+    await useFetch(backendApiBaseUrl + '/sanctum/csrf-cookie').get().json();
 }
 
 export async function getToken() {
@@ -18,7 +19,7 @@ export async function getToken() {
 }
 
 export const useApiFetch = createFetch({
-    baseUrl: import.meta.env.VITE_API_BASE_URL,
+    baseUrl: backendApiBaseUrl,
     options: {
         async beforeFetch({ options }) {
             const token = await getToken();
