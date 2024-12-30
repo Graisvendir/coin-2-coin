@@ -33,6 +33,12 @@ docker exec app php artisan key:generate
 1. http://localhost:8080/ - фронтенд для приложения
 2. http://localhost:8080/api - API для приложения
 
+### Что если мне надо залезть внутрь контейнера и что-то сделат в его терминале
+
+```bash
+docker exec -ti app bash
+```
+
 ## TODO Как тут работать с проектом??
 
 Ссылка на проект более подробное описание https://docs.google.com/document/d/1JE5RbvKvxfdpP8ihJ1N4ZYBgESqCeZ7KjSliVnmPDso/edit?usp=sharing
