@@ -3,7 +3,7 @@ import {useCookies} from 'vue3-cookies';
 import {backendApiBaseUrl} from '~/shared/config';
 
 export async function refreshCsrfToken() {
-    await useFetch(backendApiBaseUrl + '/sanctum/csrf-cookie').get().json();
+    await useFetch(backendApiBaseUrl + '/csrf-cookie').get().json();
 }
 
 export async function getToken() {
