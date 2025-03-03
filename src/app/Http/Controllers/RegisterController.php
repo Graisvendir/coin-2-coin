@@ -19,8 +19,9 @@ class RegisterController extends Controller
      */
     public function register(RegisterRequest $request)
     {
-        $isSaved = User::query()->save([
-            $request->all(),
+
+        $isSaved = User::create([
+            ...$request->validated(),
             'name' => $request->getEmail(),
             'email_verified_at' => now(),
             'password' => Hash::make($request->getPassword()),
@@ -31,7 +32,7 @@ class RegisterController extends Controller
         }
 
         return response()->json([
-            'message' => 'Invalid email or password',
+            'message' => 'Пользователь не сохранился :(',
         ], Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 }
