@@ -1,26 +1,26 @@
 services:
     # основное приложение с fpm, все остальные (шедулер, очереди, октан) используют его image
-    app:
-        build:
-            args:
-                user: www
-                uid: 1000
-            context: .
-            dockerfile: Dockerfile
-        image: laravel-app
-        container_name: app
-        restart: unless-stopped
-        working_dir: /var/www/
-        depends_on:
-            - db
-            - app-setup
-        volumes:
-            - ../src/:/var/www
-        profiles:
-            - dev
-            - prod
-        networks:
-            - app-network
+    #    app:
+    #        build:
+    #            args:
+    #                user: www
+    #                uid: 1000
+    #            context: .
+    #            dockerfile: Dockerfile
+    #        image: laravel-app
+    #        container_name: app
+    #        restart: unless-stopped
+    #        working_dir: /var/www/
+    #        depends_on:
+    #            - db
+    #            - app-setup
+    #        volumes:
+    #            - ../src/:/var/www
+    #        profiles:
+    #            - dev
+    #            - prod
+    #        networks:
+    #            - app-network
 
     # запуск команд, необходимых для работы приложение - установка пакетов композера, применение миграций и т.д.
     app-setup:
@@ -47,31 +47,31 @@ services:
             - app-network
 
     # копия приложения, запущенная на октане
-#    app:
-#        build:
-#            args:
-#                user: www
-#                uid: 1000
-#            context: .
-#            dockerfile: Dockerfile
-#        image: laravel-app
-#        container_name: app
-#        restart: unless-stopped
-#        tty: true
-#        working_dir: /var/www/
-#        entrypoint: php artisan octane:start --port=8081 --workers=${APP_OCTANE_WORKERS:-4} -n
-#        expose:
-#            - 8081
-#        depends_on:
-#            - app-setup
-#            - db
-#        volumes:
-#            - ../src/:/var/www
-#        profiles:
-#            - dev
-#            - prod
-#        networks:
-#            - app-network
+    app:
+        build:
+            args:
+                user: www
+                uid: 1000
+            context: .
+            dockerfile: Dockerfile
+        image: laravel-app
+        container_name: app
+        restart: unless-stopped
+        tty: true
+        working_dir: /var/www/
+        entrypoint: php artisan octane:start --port=8081 --workers=${APP_OCTANE_WORKERS:-4} --watch
+        expose:
+            - 8081
+        depends_on:
+            - app-setup
+            - db
+        volumes:
+            - ../src/:/var/www
+        profiles:
+            - dev
+            - prod
+        networks:
+            - app-network
 
     # шедулер
     app-scheduler-worker:
@@ -189,9 +189,9 @@ services:
             - /bin/sh
             - -c
             - |
-               bun install
-               rm -rf ./dist
-               bunx vite --host=0.0.0.0
+                bun install
+                rm -rf ./dist
+                bunx vite --host=0.0.0.0
         volumes:
             - ../frontend:/app
         ports:
@@ -215,4 +215,4 @@ services:
             - app-network
 networks:
     app-network:
-      driver: bridge
+        driver: bridge
