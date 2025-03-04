@@ -1,7 +1,5 @@
-import {useApiFetch} from '~/shared/api/use-api-fetch.ts';
+import {SuccessResponse, TAccountStatus, useApiFetch} from '~/shared/api';
 import {useAccountStatusStore} from '~/entities/account-status';
-import {TAccountStatus} from '~/shared/api/account-status.ts';
-import {SuccessResponse} from '~/shared/api/response.ts';
 
 /**
  * Проверка аккаунта пользователя.

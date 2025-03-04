@@ -2,11 +2,11 @@ import {createFetch, useFetch} from '@vueuse/core';
 import {useCookies} from 'vue3-cookies';
 import {backendApiBaseUrl} from '~/shared/config';
 
-export async function refreshCsrfToken() {
+async function refreshCsrfToken() {
     await useFetch(backendApiBaseUrl + '/csrf-cookie').get().json();
 }
 
-export async function getToken() {
+async function getToken() {
     const {cookies} = useCookies();
     let token = cookies.get('XSRF-TOKEN');
 

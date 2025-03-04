@@ -1,9 +1,6 @@
 import {ref} from 'vue';
-import {useApiFetch} from '~/shared/api/use-api-fetch.ts';
+import {useApiFetch, SuccessResponse, TAccountStatus} from '~/shared/api';
 import {useAccountStatusStore} from '~/entities/account-status';
-import {SuccessResponse} from '~/shared/api/response.ts';
-import {TAccountStatus} from '~/shared/api/account-status.ts';
-
 
 export function useAuth() {
     const email = ref<string>('');
