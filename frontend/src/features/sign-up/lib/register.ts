@@ -14,9 +14,9 @@ export function useRegister() {
 
         if (response.value?.ok) {
             const json = (await response.value?.json()) as SuccessResponse<TAccountStatus>;
-            const accountStatusStore = useAccountStatusStore();
+            const {setAuthorization} = useAccountStatusStore();
 
-            accountStatusStore.setAuthorization(json.data);
+            setAuthorization(json.data);
         }
     }
 

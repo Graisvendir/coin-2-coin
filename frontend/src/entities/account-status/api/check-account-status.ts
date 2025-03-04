@@ -7,13 +7,13 @@ import {useAccountStatusStore} from '~/entities/account-status';
  * Сохраним его в стор.
  */
 export async function checkAccountStatus() {
-    const accountStatusStore = useAccountStatusStore();
+    const {setAuthorization} = useAccountStatusStore();
 
     const {response} = await useApiFetch('/account-status').json().get();
 
     if (response.value?.ok) {
         const json = (await response.value?.json()) as SuccessResponse<TAccountStatus>;
 
-        accountStatusStore.setAuthorization(json.data);
+        setAuthorization(json.data);
     }
 }

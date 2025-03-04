@@ -1,29 +1,23 @@
 import { defineStore } from 'pinia';
 import {TAccountStatus} from '~/shared/api/account-status.ts';
-
-type AccountStatus = {
-    /**
-     * email, через который пользователь авторизовался
-     */
-    email: string | undefined;
-};
-
+import {computed, ref} from 'vue';
 /**
  * Стор для хранения данных об аккаунте, через который пользователь авторизован
  */
-export const useAccountStatusStore = defineStore('accountStatus', {
-    state: (): AccountStatus => {
-        return {
-            email: undefined,
-        };
-    },
-    actions: {
-        /**
-         * Установить аккаунт пользователя в стор.
-         * @param accountStatus
-         */
-        setAuthorization(accountStatus: TAccountStatus) {
-            this.email = accountStatus.email;
-        },
-    },
+export const useAccountStatusStore = defineStore('accountStatus', () => {
+    const account = ref<TAccountStatus|null>(null);
+    const isAuth = computed(() => {
+        return account.value !== null;
+    });
+
+    function setAuthorization(accountStatus: TAccountStatus) {
+        account.value = accountStatus;
+    }
+
+    return {
+        account,
+        isAuth,
+
+        setAuthorization,
+    };
 });
