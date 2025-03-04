@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -19,7 +20,6 @@ class RegisterController extends Controller
      */
     public function register(RegisterRequest $request)
     {
-
         $isSaved = User::create([
             ...$request->validated(),
             'name' => $request->getEmail(),
@@ -28,6 +28,8 @@ class RegisterController extends Controller
         ]);
 
         if ($isSaved) {
+            Auth::attempt($request->only('email', 'password'));
+
             return response()->json([]);
         }
 

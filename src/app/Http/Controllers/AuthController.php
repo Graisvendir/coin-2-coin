@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AuthRequest;
+use App\Http\Resources\AccountStatusResource;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
@@ -19,16 +20,16 @@ class AuthController extends Controller
      */
     public function auth(AuthRequest $request)
     {
-        $email = $request->get('email');
-        $password = $request->get('password');
+        $email = $request->validated('email');
+        $password = $request->validated('password');
         $attempt = Auth::attempt(['email' => $email, 'password' => $password], true);
 
         if ($attempt) {
-            return Auth::user();
+            return AccountStatusResource::make(Auth::user());
         }
 
         return response()->json([
-             'message' => 'Invalid email or password',
+             'message' => 'Не удалось авторизоваться',
         ], Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 }
