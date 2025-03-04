@@ -1,6 +1,6 @@
 <template>
     <div>
-        <form @submit.prevent="auth">
+        <form @submit.prevent="register">
             <div>
                 <input v-model="email" type="email" placeholder="Email">
             </div>
@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-    import {useAuth} from '~/features/sign-in';
+    import { useRegister } from '../lib/register.ts';
 
-    const {email, password, auth} = useAuth();
+    const {email, password, register} = useRegister();
 </script>

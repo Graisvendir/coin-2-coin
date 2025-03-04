@@ -1,5 +1,5 @@
-import { useAuth } from './api/auth.ts';
+import LoginForm from './ui/LoginForm.vue';
 
 export {
-    useAuth,
+    LoginForm,
 };

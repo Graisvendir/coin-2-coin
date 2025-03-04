@@ -1,5 +1,5 @@
-import { useRegister } from './api/register.ts';
+import RegisterForm from './ui/RegisterForm.vue';
 
 export {
-    useRegister,
+    RegisterForm,
 };

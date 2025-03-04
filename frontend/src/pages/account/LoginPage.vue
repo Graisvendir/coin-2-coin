@@ -10,5 +10,5 @@
 </template>
 
 <script setup lang="ts">
-    import { LoginForm } from '~/widgets/sign-in';
+    import { LoginForm } from '~/features/sign-in';
 </script>

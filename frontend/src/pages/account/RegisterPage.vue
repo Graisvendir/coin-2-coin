@@ -10,5 +10,5 @@
 </template>
 
 <script setup lang="ts">
-    import {RegisterForm} from '~/widgets/sign-up';
+    import {RegisterForm} from '~/features/sign-up';
 </script>

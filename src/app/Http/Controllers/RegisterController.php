@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterRequest;
+use App\Http\Resources\AccountStatusResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,7 +31,7 @@ class RegisterController extends Controller
         if ($isSaved) {
             Auth::attempt($request->only('email', 'password'));
 
-            return response()->json([]);
+            return AccountStatusResource::make(Auth::user());
         }
 
         return response()->json([
