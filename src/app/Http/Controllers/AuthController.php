@@ -16,7 +16,7 @@ class AuthController extends Controller
      * TODO: Потом переделать
      *
      * @param AuthRequest $request
-     * @return Authenticatable|JsonResponse|null
+     * @return AccountStatusResource|JsonResponse|null
      */
     public function auth(AuthRequest $request)
     {

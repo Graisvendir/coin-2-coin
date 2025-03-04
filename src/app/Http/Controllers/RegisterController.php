@@ -17,21 +17,21 @@ class RegisterController extends Controller
      * TODO: Потом переделать
      *
      * @param Request $request
-     * @return \Illuminate\Contracts\Auth\Authenticatable|\Illuminate\Http\JsonResponse|null
+     * @return AccountStatusResource|\Illuminate\Http\JsonResponse|null
      */
     public function register(RegisterRequest $request)
     {
-        $isSaved = User::create([
+        $user = User::query()->create([
             ...$request->validated(),
             'name' => $request->getEmail(),
             'email_verified_at' => now(),
             'password' => Hash::make($request->getPassword()),
         ]);
 
-        if ($isSaved) {
-            Auth::attempt($request->only('email', 'password'));
+        if ($user) {
+            Auth::login($user);
 
-            return AccountStatusResource::make(Auth::user());
+            return AccountStatusResource::make($user);
         }
 
         return response()->json([
