@@ -115,20 +115,6 @@ services:
         networks:
             - app-network
 
-    # laravel pulse
-    app-laravel-pulse:
-        image: laravel-app
-        pull_policy: never
-        container_name: app-laravel-pulse
-        restart: unless-stopped
-        tty: true
-        working_dir: /var/www/
-        entrypoint: php artisan pulse:check
-        volumes:
-            - ../app/:/var/www
-        networks:
-            - app-network
-
     # база данных
     db:
         image: postgres:17.2
