@@ -5,12 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string $name
+ * @property int $order
+ * @property int $user_id
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CashAccount newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CashAccount newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CashAccount query()
