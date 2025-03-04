@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a3fa0f126cecda14df43f2d80c1b5463",
+    "content-hash": "ed46de647858cbf5ffc5d3f4b25f62a3",
     "packages": [
         {
             "name": "brick/math",
@@ -1108,65 +1108,6 @@
                 }
             ],
             "time": "2023-12-03T19:50:20+00:00"
-        },
-        {
-            "name": "hosmelq/laravel-pulse-schedule",
-            "version": "v1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/hosmelq/laravel-pulse-schedule.git",
-                "reference": "33a566003715027a421fe29aa0766568cd36362b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/hosmelq/laravel-pulse-schedule/zipball/33a566003715027a421fe29aa0766568cd36362b",
-                "reference": "33a566003715027a421fe29aa0766568cd36362b",
-                "shasum": ""
-            },
-            "require": {
-                "laravel/framework": "^10.48.4|^11.0.8|^12.0",
-                "laravel/pulse": "^1.4",
-                "php": "^8.1"
-            },
-            "require-dev": {
-                "laravel/pint": "^1.10"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "HosmelQ\\Laravel\\Pulse\\Schedule\\ScheduleServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "HosmelQ\\Laravel\\Pulse\\Schedule\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Hosmel Quintana",
-                    "email": "hosmelq@gmail.com"
-                }
-            ],
-            "description": "Laravel Pulse card that list all scheduled tasks.",
-            "keywords": [
-                "hosmelq",
-                "laravel",
-                "laravel-pulse",
-                "laravel-pulse-schedule",
-                "pulse"
-            ],
-            "support": {
-                "issues": "https://github.com/hosmelq/laravel-pulse-schedule/issues",
-                "source": "https://github.com/hosmelq/laravel-pulse-schedule/tree/v1.0.0"
-            },
-            "time": "2025-02-15T19:56:16+00:00"
         },
         {
             "name": "laminas/laminas-diactoros",
