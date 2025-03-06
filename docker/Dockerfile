@@ -11,10 +11,15 @@ RUN apt update && apt install -y \
     libonig-dev \
     libxml2-dev \
     libpq-dev \
+    libglib2.0-0 \
+    libnss3 \
+    libzip-dev \
     zip \
-    unzip
+    unzip \
+    chromium
+
 RUN apt clean && rm -rf /var/lib/apt/lists/*
-RUN docker-php-ext-install pdo pdo_pgsql pgsql pdo_mysql mbstring exif pcntl bcmath gd
+RUN docker-php-ext-install pdo pdo_pgsql pgsql pdo_mysql mbstring exif pcntl bcmath gd zip
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 

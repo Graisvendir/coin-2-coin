@@ -2,10 +2,10 @@
     <div>
         <form @submit.prevent="auth">
             <div>
-                <input v-model="email" type="email" placeholder="Email">
+                <input v-model="email" type="email" name="email" placeholder="Email">
             </div>
             <div>
-                <input v-model="password" type="password" placeholder="Password">
+                <input v-model="password" type="password" name="password" placeholder="Password">
             </div>
 
             <div>
