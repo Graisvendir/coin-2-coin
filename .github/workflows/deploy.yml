@@ -2,14 +2,14 @@ name: test
 
 on: push
 
+env:
+    POSTGRES_DB: app
+    POSTGRES_USER: user
+    POSTGRES_PASSWORD: pass
+
 jobs:
     test:
         runs-on: ubuntu-latest
-
-        environment:
-            POSTGRES_DB: app
-            POSTGRES_USER: user
-            POSTGRES_PASSWORD: pass
 
         steps:
             - name: Checkout Repository
