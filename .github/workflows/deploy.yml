@@ -12,6 +12,7 @@ jobs:
 
             - name: Docker compose up
               run: |
+                cd docker
                 docker compose --profile test up --build -d
 
             - name: Prepare dusk
