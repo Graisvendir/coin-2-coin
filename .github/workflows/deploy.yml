@@ -16,6 +16,10 @@ jobs:
             - name: Checkout Repository
               uses: actions/checkout@v3
 
+            - name: Copy env
+              run: |
+                cp ./src/.env.testing ./src/.env
+
             - name: Docker compose up
               run: |
                 cd docker
@@ -24,7 +28,6 @@ jobs:
             - name: Prepare dusk
               run: |
                 cd docker
-                docker compose exec app php artisan key:generate
                 docker compose exec app php artisan dusk:chrome-driver --detect
 
             - name: Dusk test
