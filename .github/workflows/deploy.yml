@@ -24,13 +24,5 @@ jobs:
               run: |
                 cd docker
                 docker compose --profile test up --build -d
-
-            - name: Prepare dusk
-              run: |
-                cd docker
                 docker compose exec -it app php artisan dusk:chrome-driver --detect
-
-            - name: Dusk test
-              run: |
-                cd docker
                 docker compose exec -it app php artisan dusk
