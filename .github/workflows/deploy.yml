@@ -6,6 +6,7 @@ env:
     POSTGRES_DB: app
     POSTGRES_USER: user
     POSTGRES_PASSWORD: pass
+    VITE_API_BASE_URL: http://nginx/api
 
 jobs:
     test:
