@@ -1,0 +1,21 @@
+name: test
+
+jobs:
+    test:
+        runs-on: debian-latest
+
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v3
+
+            - name: Docker compose up
+              run: |
+                docker compose --profile test up --build -d
+
+            - name: Prepare dusk
+              run: |
+                  docker compose exec app php artisan dusk:chrome-driver --detect
+
+            - name: Dusk test
+              run: |
+                docker compose exec app php artisan dusk
