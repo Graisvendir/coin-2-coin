@@ -17,8 +17,10 @@ jobs:
 
             - name: Prepare dusk
               run: |
-                  docker compose exec app php artisan dusk:chrome-driver --detect
+                cd docker
+                docker compose exec app php artisan dusk:chrome-driver --detect
 
             - name: Dusk test
               run: |
+                cd docker
                 docker compose exec app php artisan dusk
