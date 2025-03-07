@@ -6,6 +6,11 @@ jobs:
     test:
         runs-on: ubuntu-latest
 
+        environment:
+            POSTGRES_DB: app
+            POSTGRES_USER: user
+            POSTGRES_PASSWORD: pass
+
         steps:
             - name: Checkout Repository
               uses: actions/checkout@v3
