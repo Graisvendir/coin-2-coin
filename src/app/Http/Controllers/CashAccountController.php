@@ -6,26 +6,18 @@ use App\Http\Requests\AddCashAccountRequest;
 use App\Http\Requests\UpdateCashAccountRequest;
 use App\Http\Resources\CashAccountResource;
 use App\Models\CashAccount;
-use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CashAccountController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(User $user)
+    public function index(Request $request)
     {
-        return CashAccountResource::collection($user->cashAccounts);
+        return CashAccountResource::collection(Auth::user()->cashAccounts);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-//    public function create()
-//    {
-//        //
-//    }
 
     /**
      * Store a newly created resource in storage.
@@ -36,22 +28,6 @@ class CashAccountController extends Controller
 
         return CashAccountResource::make($cashAccount);
     }
-
-    /**
-     * Display the specified resource.
-     */
-//    public function show(CashAccount $cashAccount)
-//    {
-//        return CashAccountResource::make($cashAccount);
-//    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-//    public function edit(string $id)
-//    {
-//        //
-//    }
 
     /**
      * Update the specified resource in storage.

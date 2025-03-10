@@ -15,8 +15,8 @@ class UpdateCashAccountRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => 'required',
-            'name' => 'required',
+            'id' => 'required|integer',
+            'name' => 'required|string',
         ];
     }
 }

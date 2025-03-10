@@ -21,6 +21,7 @@ class CashAccountResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'name' => $this->resource->name,
+            'order' => $this->resource->order,
         ];
     }
 }
