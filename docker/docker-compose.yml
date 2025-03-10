@@ -134,27 +134,6 @@ services:
         networks:
             - app-network
 
-    # админка для базы
-    pgadmin:
-        container_name: pgadmin_container
-        image: dpage/pgadmin4:8.13
-        restart: unless-stopped
-        environment:
-            PGADMIN_CONFIG_SERVER_MODE: "False"
-        deploy:
-            resources:
-                limits:
-                    cpus: '0.5'
-                    memory: 1G
-        volumes:
-            - ./postgres/data:/var/lib/postgresql/data
-        ports:
-            - "5050:80"
-        profiles:
-            - dev
-        networks:
-            - app-network
-
     # nginx, раздает статику, проксирует запросы на fpm и октан
     nginx:
         image: nginx:alpine
