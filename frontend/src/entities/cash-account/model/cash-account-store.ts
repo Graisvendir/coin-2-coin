@@ -5,7 +5,7 @@ import {TCashAccount} from '~/shared/api';
 /**
  * Стор для хранения счетов
  */
-export const useCashAccountStore = defineStore('cashAccount', () => {
+export const useCashAccountsStore = defineStore('cashAccounts', () => {
     const cashAccounts = ref<TCashAccount[]>([]);
 
     function setCashAccounts(cashAccountList: TCashAccount[]) {

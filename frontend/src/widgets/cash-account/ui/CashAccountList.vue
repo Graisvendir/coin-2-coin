@@ -1,23 +1,24 @@
 <template>
     <div>
+        <CashAccount v-for="cashAccount in cashAccounts" :key="cashAccount.id" :cash-account="cashAccount" />
     </div>
 </template>
 
 <script setup lang="ts">
 
-    import {useApiFetch} from '~/shared/api';
+    import {watch} from 'vue';
+    import {storeToRefs} from 'pinia';
+    import {CashAccount, loadCashAccounts, useCashAccountsStore} from '~/entities/cash-account';
+    import {useAccountStatusStore} from '~/entities/account-status';
 
-    async function getList() {
-        const {response} = await useApiFetch('/cash-account').json().get();
+    const cashAccountsStore = useCashAccountsStore();
+    const { cashAccounts } = storeToRefs(cashAccountsStore);
+    const accountStore = useAccountStatusStore();
+    const { isAuth } = storeToRefs(accountStore);
 
-        if (response) {
-            const json = await response.value?.json();
-
-            console.log('!!!!!! json', json); // TODO: remove console.log
+    watch(isAuth, () => {
+        if (isAuth) {
+            loadCashAccounts();
         }
-    }
-
-    setInterval(() => {
-        getList();
-    }, 5000);
+    }, { immediate: true});
 </script>
