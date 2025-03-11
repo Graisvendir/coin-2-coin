@@ -1,12 +1,17 @@
 <template>
-    <AccountStatus />
-    <CashAccountList />
-
-    <RouterView v-slot="{ Component }">
-        <transition mode="out-in" name="fade">
-            <component :is="Component" />
-        </transition>
-    </RouterView>
+    <div class="layout">
+        <div class="layout__sidebar">
+            <AccountStatus />
+            <CashAccountList />
+        </div>
+        <div class="layout__main">
+            <RouterView v-slot="{ Component }">
+                <transition mode="out-in" name="fade">
+                    <component :is="Component" />
+                </transition>
+            </RouterView>
+        </div>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -25,5 +30,21 @@
 </script>
 
 <style>
+
+.layout {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+.layout__sidebar {
+    flex-shrink: 0;
+    width: 20rem;
+    border-right: 1px solid red;
+}
+
+.layout__main {
+    flex-grow: 1;
+}
 </style>
 
