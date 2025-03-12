@@ -1,11 +1,37 @@
 :root {
+    /* Светлая палитра */
+    --color-background: #FFFFFF; /* Фоновый цвет */
+    --color-primary: #6200EE;    /* Основной цвет */
+    --color-secondary: #03DAC5;  /* Вторичный цвет */
+    --color-text: #000000;       /* Цвет текста */
+    --color-text-light: #121212; /* Светлый текст */
+    --color-border: #DDDDDD;     /* Цвет границ */
+    --color-shadow: rgba(0, 0, 0, 0.1); /* Цвет тени */
+    --color-error: #F44336;      /* Цвет ошибки */
+    --color-warning: #FF9800;    /* Цвет предупреждения */
+    --color-info: #2196F3;       /* Цвет информации */
+
+    @media (prefers-color-scheme: dark) {
+        /* Темная палитра */
+        --color-background: #121212; /* Фоновый цвет */
+        --color-primary: #BB86FC;    /* Основной цвет */
+        --color-secondary: #03DAC5;  /* Вторичный цвет */
+        --color-text: #E0E0E0;       /* Цвет текста */
+        --color-text-light: #FFFFFF; /* Светлый текст */
+        --color-border: #333333;     /* Цвет границ */
+        --color-shadow: rgba(0, 0, 0, 0.5); /* Цвет тени */
+        --color-error: #CF6679;      /* Цвет ошибки */
+        --color-warning: #FFA000;    /* Цвет предупреждения */
+        --color-info: #2196F3;       /* Цвет информации */
+    }
+
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
     font-weight: 400;
 
     color-scheme: light dark;
-    color: rgba(255, 255, 255, 0.87);
-    background-color: #242424;
+    color: var(--color-text);
+    background-color: var(--color-background);
 
     font-synthesis: none;
     text-rendering: optimizeLegibility;
@@ -15,11 +41,12 @@
 
 a {
     font-weight: 500;
-    color: #646cff;
+    color: var(--color-primary);
     text-decoration: inherit;
 }
+
 a:hover {
-    color: #535bf2;
+    color: var(--color-secondary);
 }
 
 body {
@@ -35,17 +62,18 @@ h1 {
 
 button {
     border-radius: 8px;
-    border: 1px solid transparent;
+    border: none;
     padding: 0.6em 1.2em;
     font-size: 1em;
     font-weight: 500;
     font-family: inherit;
-    background-color: #1a1a1a;
+    background-color: var(--color-primary);
     cursor: pointer;
     transition: border-color 0.25s;
+    color: var(--color-text-light);
 }
 button:hover {
-    border-color: #646cff;
+    background-color: var(--color-secondary);
 }
 button:focus,
 button:focus-visible {
@@ -59,17 +87,4 @@ button:focus-visible {
 #app {
     height: 100vh;
     width: 100vw;
-}
-
-@media (prefers-color-scheme: light) {
-    :root {
-        color: #213547;
-        background-color: #ffffff;
-    }
-    a:hover {
-        color: #747bff;
-    }
-    button {
-        background-color: #f9f9f9;
-    }
 }

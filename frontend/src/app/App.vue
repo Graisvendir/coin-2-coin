@@ -77,7 +77,7 @@
     line-height: 1;
     padding: .3em;
     box-sizing: border-box;
-    background: black;
+    background: var(--color-primary);
     border-radius: .2em;
     animation: 1s ease splash alternate-reverse infinite;
 }
