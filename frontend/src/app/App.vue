@@ -1,6 +1,7 @@
 <template>
     <div class="layout">
         <div class="layout__sidebar">
+            <h1>Coin-2-coin</h1>
             <AccountStatus />
             <CashAccountList />
         </div>
@@ -16,17 +17,12 @@
 
 <script setup lang="ts">
     import '../shared/common.css';
-    import {onMounted} from 'vue';
     import {checkAccountStatus} from '~/entities/account-status';
     import {AccountStatus} from '~/widgets/account-status';
     import CashAccountList from '~/widgets/cash-account/ui/CashAccountList.vue';
 
-    onMounted(() => {
-        /**
-         * На старте приложения получаем аккаунт пользователя.
-         */
-        checkAccountStatus();
-    });
+    checkAccountStatus();
+
 </script>
 
 <style>
@@ -41,10 +37,12 @@
     flex-shrink: 0;
     width: 20rem;
     border-right: 1px solid red;
+    padding: 1rem;
 }
 
 .layout__main {
     flex-grow: 1;
+    padding: 1rem;
 }
 </style>
 

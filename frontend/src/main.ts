@@ -5,6 +5,6 @@ import {router} from './app/router.ts';
 import {piniaStore} from './app/store.ts';
 
 createApp(App)
-    .use(router)
     .use(piniaStore)
+    .use(router)
     .mount('#app');
