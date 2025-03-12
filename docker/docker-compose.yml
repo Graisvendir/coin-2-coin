@@ -40,6 +40,7 @@ services:
             - |
                 composer install
                 php artisan migrate --force
+                php artisan octane:install --server=frankenphp --no-interaction
         profiles:
             - dev
             - prod
