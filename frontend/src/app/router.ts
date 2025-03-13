@@ -17,10 +17,13 @@ export const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     const { isAuth } = storeToRefs(useAccountStatusStore());
+    const authRoutes = ['login', 'register'];
 
-    if (!isAuth.value && !['login', 'register'].includes(to.name)) {
+    if (!isAuth.value && !authRoutes.includes(to.name)) {
         next({name: 'login', query: {from: to.fullPath}});
-    } else {
-        next();
+
+        return;
     }
+
+    next();
 });
