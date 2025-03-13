@@ -3,6 +3,7 @@ import { LoginPage, RegisterPage } from '../pages/account';
 import {useAccountStatusStore} from '~/entities/account-status';
 import {storeToRefs} from 'pinia';
 import {TransactionsHistory} from '~/pages/transactions';
+import {useAppStore} from '~/entities/account-status/model/app-store.ts';
 
 const routes = [
     { path: '/', name: 'home', component: TransactionsHistory },
@@ -15,7 +16,10 @@ export const router = createRouter({
     routes,
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
+    const appStore = useAppStore();
+    await appStore.waitReady();
+
     const { isAuth } = storeToRefs(useAccountStatusStore());
     const authRoutes = ['login', 'register'];
 
