@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $cash_account_id
  * @property float $amount
  * @property string $name
+ * @property-read Tag[] $tags
+ * @property-read CashAccount $cashAccount
  * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountTransaction newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountTransaction newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountTransaction query()
@@ -31,5 +33,10 @@ class AccountTransaction extends Model
     public function tags()
     {
         return $this->morphToMany(Tag::class, 'taggable');
+    }
+
+    public function cashAccount()
+    {
+        return $this->belongsTo(CashAccount::class);
     }
 }

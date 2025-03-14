@@ -15,12 +15,8 @@ class DevUserSeeder extends Seeder
      */
     public function run(User $user): void
     {
-        $cashAccounts = CashAccount::factory()->count(3)->create([
-            'user_id' => $user->id,
-        ]);
-        $tags = Tag::factory()->count(5)->create([
-            'user_id' => $user->id,
-        ]);
+        $cashAccounts = CashAccount::factory()->count(3)->for($user)->create();
+        $tags = Tag::factory()->count(5)->for($user)->create();
 
         $cashAccounts->each(function (CashAccount $cashAccount) use ($tags) {
             $tagsForTransaction = fake()->randomElement($tags);
@@ -28,9 +24,8 @@ class DevUserSeeder extends Seeder
             for ($i = 0; $i < 30; $i++) {
                 AccountTransaction::factory()
                     ->hasAttached($tagsForTransaction)
-                    ->create([
-                        'cash_account_id' => $cashAccount->id,
-                    ]);
+                    ->for($cashAccount)
+                    ->create();
             }
         });
     }

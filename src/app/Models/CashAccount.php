@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property int $order
  * @property int $user_id
+ * @property-read User $user
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CashAccount newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CashAccount newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CashAccount query()
@@ -26,4 +27,9 @@ use Illuminate\Database\Eloquent\Model;
 class CashAccount extends Model
 {
     use HasFactory;
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

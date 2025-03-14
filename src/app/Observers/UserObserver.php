@@ -12,7 +12,7 @@ class UserObserver
      */
     public function created(User $user): void
     {
-        if (config('app.env') === 'local') {
+        if (app()->isLocal()) {
             $seeder = new DevUserSeeder();
             $seeder->run($user);
         }
