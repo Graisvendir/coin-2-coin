@@ -1,3 +1,3 @@
-import TransactionsHistory from './ui/TransactionsHistory.vue';
+import Transactions from './ui/Transactions.vue';
 
-export { TransactionsHistory };
+export { Transactions };

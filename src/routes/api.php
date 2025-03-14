@@ -18,4 +18,7 @@ Route::middleware('auth:sanctum')
         Route::resources([
             'tag' => \App\Http\Controllers\TagController::class,
         ]);
+        Route::resources([
+            'account-transaction' => \App\Http\Controllers\AccountTransactionController::class,
+        ]);
     });
