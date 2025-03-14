@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /bin/bash
 
 bash ./down.sh
 bash ./up.sh

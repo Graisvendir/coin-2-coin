@@ -1,3 +1,3 @@
-#!/bin/bash
+#! /bin/bash
 
-docker compose exec app composer $1
+docker compose exec app composer $@
