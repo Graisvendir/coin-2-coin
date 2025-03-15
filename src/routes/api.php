@@ -11,6 +11,7 @@ Route::post('/register', [\App\Http\Controllers\RegisterController::class, 'regi
 Route::middleware('auth:sanctum')
     ->group(function () {
         Route::get('/account-status', [\App\Http\Controllers\AccountStatusController::class, 'accountStatus']);
+        Route::post('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);
 
         Route::resources([
             'cash-account' => \App\Http\Controllers\CashAccountController::class,

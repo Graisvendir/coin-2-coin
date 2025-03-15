@@ -10,7 +10,7 @@ export const useAccountStatusStore = defineStore('accountStatus', () => {
         return account.value !== null;
     });
 
-    function setAuthorization(accountStatus: TAccountStatus) {
+    function setAuthorization(accountStatus: TAccountStatus | null) {
         account.value = accountStatus;
     }
 

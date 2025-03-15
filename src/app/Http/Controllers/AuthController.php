@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AuthRequest;
 use App\Http\Resources\AccountStatusResource;
-use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -31,5 +31,15 @@ class AuthController extends Controller
         return response()->json([
              'message' => 'Не удалось авторизоваться',
         ], Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::guard('web')->logout();
+        $request->session()->invalidate();
+
+        return response()->json([
+            'message' => 'Вы успешно разавторизованы',
+        ]);
     }
 }
