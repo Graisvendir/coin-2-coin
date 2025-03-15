@@ -1,7 +1,7 @@
 <template>
     <div class="account-status">
         <div class="account-status__name">{{ isAuth ? account?.email : 'Неавторизованный пёс' }}</div>
-        <button v-if="isAuth" @click="logout()">Выйти</button>
+        <button v-if="isAuth" class="btn" @click="logout()">Выйти</button>
     </div>
 </template>
 
@@ -25,5 +25,9 @@
     border-radius: 1rem;
     padding: 1rem;
     box-sizing: border-box;
+    gap: 1rem;
+}
+.account-status__name {
+    overflow: hidden;
 }
 </style>

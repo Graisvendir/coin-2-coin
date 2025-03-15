@@ -9,7 +9,7 @@
             </div>
 
             <div>
-                <button>Шли</button>
+                <button class="btn">Шли</button>
             </div>
         </form>
     </div>

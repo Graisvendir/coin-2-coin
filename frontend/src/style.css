@@ -39,13 +39,13 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-a {
+.link {
     font-weight: 500;
     color: var(--color-primary);
     text-decoration: inherit;
 }
 
-a:hover {
+.link:hover {
     color: var(--color-secondary);
 }
 
@@ -60,7 +60,7 @@ h1 {
     line-height: 1.1;
 }
 
-button {
+.btn {
     border-radius: 8px;
     border: none;
     padding: 0.6em 1.2em;
@@ -72,11 +72,11 @@ button {
     transition: border-color 0.25s;
     color: var(--color-text-light);
 }
-button:hover {
+.btn:hover {
     background-color: var(--color-secondary);
 }
-button:focus,
-button:focus-visible {
+.btn:focus,
+.btn:focus-visible {
     outline: 4px auto -webkit-focus-ring-color;
 }
 

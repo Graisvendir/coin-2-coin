@@ -3,7 +3,7 @@
         <h1>Registration</h1>
         <RegisterForm />
 
-        <RouterLink :to="{name: 'login'}">Back to Login</RouterLink>
+        <RouterLink :to="{name: 'login'}" class="link">Back to Login</RouterLink>
     </div>
 </template>
 
