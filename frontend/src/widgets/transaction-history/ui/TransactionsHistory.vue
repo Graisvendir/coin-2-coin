@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="account-transaction-list">
         <AccountTransaction
             v-for="transaction in transactionList"
             :key="transaction.id"
@@ -29,3 +29,12 @@
 
     load();
 </script>
+
+<style>
+.account-transaction-list {
+    max-width: 50rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+</style>

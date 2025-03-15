@@ -47,20 +47,19 @@
 
 .layout {
     display: flex;
-    height: 100vh;
-    width: 100vw;
 }
 
 .layout__sidebar {
     flex-shrink: 0;
-    width: 20rem;
-    border-right: 1px solid red;
-    padding: 1rem;
+    width: 25rem;
+    border-right: 1px solid var(--color-border);
+    padding: 2rem;
+    box-sizing: border-box;
 }
 
 .layout__main {
     flex-grow: 1;
-    padding: 1rem;
+    padding: 2rem;
 }
 
 .splash {
