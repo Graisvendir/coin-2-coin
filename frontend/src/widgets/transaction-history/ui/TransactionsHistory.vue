@@ -1,10 +1,20 @@
 <template>
     <div class="account-transaction-list">
-        <AccountTransaction
-            v-for="transaction in transactionList"
+        <div
+            v-for="(transaction, index) in transactionList"
             :key="transaction.id"
-            :transaction="transaction"
-        />
+        >
+            <div
+                v-if="index === 0 || (new Date(transaction.created_at)).getDate() !== (new Date(transactionList[index - 1].created_at)).getDate()"
+                class="account-transaction-list__date"
+            >
+                {{transaction.created_at}}
+            </div>
+            <AccountTransaction
+                :transaction="transaction"
+            />
+        </div>
+
         <a
             v-if="moreLink"
             :href="moreLink"
@@ -47,5 +57,8 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
+}
+.account-transaction-list__date {
+    padding: 1rem;
 }
 </style>

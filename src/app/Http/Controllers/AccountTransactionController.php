@@ -2,12 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AddCashAccountRequest;
-use App\Http\Requests\UpdateCashAccountRequest;
 use App\Http\Resources\AccountTransactionResource;
-use App\Http\Resources\CashAccountResource;
-use App\Models\CashAccount;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AccountTransactionController extends Controller
@@ -17,7 +12,10 @@ class AccountTransactionController extends Controller
      */
     public function index()
     {
-        $transactions = Auth::user()->accountTransactions()->with(['tags'])->paginate();
+        $transactions = Auth::user()->accountTransactions()
+            ->with(['tags'])
+            ->orderBy('created_at', 'desc')
+            ->paginate();
 
         return AccountTransactionResource::collection($transactions);
     }
