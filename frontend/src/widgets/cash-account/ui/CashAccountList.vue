@@ -1,6 +1,9 @@
 <template>
     <div>
-        <CashAccount v-for="cashAccount in cashAccounts" :key="cashAccount.id" :cash-account="cashAccount" />
+        <h3>Счета</h3>
+        <div class="cash-account-list">
+            <CashAccount v-for="cashAccount in cashAccounts" :key="cashAccount.id" :cash-account="cashAccount" />
+        </div>
     </div>
 </template>
 
@@ -22,3 +25,11 @@
         }
     }, { immediate: true});
 </script>
+
+<style>
+.cash-account-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+</style>
