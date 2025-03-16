@@ -5,7 +5,8 @@
                 ref="cash-account-input"
                 v-model="name"
                 name="name"
-                @keydown="onKeyDown"
+                @keydown.escape="showOrHideForm"
+                @keydown.enter="save"
             >
         </template>
         <template #buttons>
@@ -26,7 +27,6 @@
 
 <script setup lang="ts">
     import { nextTick, ref, useTemplateRef } from 'vue';
-    import { deleteCashAccount, updateCashAccount } from '~/features/edit-cash-accounts/lib/update-cash-account.ts';
     import { CashAccount } from '~/entities/cash-account';
     import { TCashAccount } from '~/shared/api';
 
@@ -35,18 +35,22 @@
     }
 
     const { cashAccount } = defineProps<TProps>();
+    const emit = defineEmits<{
+        edit: [name: string],
+        delete: [],
+    }>();
 
     const showForm = ref<boolean>(false);
     const name = ref<string>(cashAccount.name);
     const input = useTemplateRef('cash-account-input');
 
     function save() {
-        updateCashAccount(cashAccount, name.value);
+        emit('edit', name.value);
         showForm.value = false;
     }
 
     function deleteItem() {
-        deleteCashAccount(cashAccount.id);
+        emit('delete');
     }
 
     function showOrHideForm() {
@@ -58,15 +62,6 @@
             nextTick(() => {
                 input.value?.focus();
             });
-        }
-    }
-
-    function onKeyDown(event: KeyboardEvent) {
-        if (event.code === 'Escape') {
-            showOrHideForm();
-        }
-        if (event.code === 'Enter') {
-            save();
         }
     }
 </script>

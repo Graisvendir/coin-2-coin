@@ -6,6 +6,8 @@
                 v-for="cashAccount in cashAccounts"
                 :key="cashAccount.id"
                 :cash-account="cashAccount"
+                @edit="onEdit(cashAccount, $event)"
+                @delete="onDelete(cashAccount)"
             />
         </div>
         <AddCashAccount />
@@ -24,12 +26,22 @@
     const { cashAccounts } = storeToRefs(cashAccountsStore);
     const accountStore = useAccountStatusStore();
     const { isAuth } = storeToRefs(accountStore);
+    import { deleteCashAccount, updateCashAccount } from '~/features/edit-cash-accounts/lib/update-cash-account.ts';
+    import { TCashAccount } from '~/shared/api';
 
     watch(isAuth, () => {
         if (isAuth) {
             loadCashAccounts();
         }
     }, { immediate: true });
+
+    function onEdit(cashAccount: TCashAccount, name: string) {
+        updateCashAccount(cashAccount, name);
+    }
+
+    function onDelete(cashAccount: TCashAccount) {
+        deleteCashAccount(cashAccount.id);
+    }
 </script>
 
 <style>
