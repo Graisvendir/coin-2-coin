@@ -17,4 +17,14 @@ export class CashAccountRequest {
             name,
         });
     }
+
+    static async update(id: number, name: string) {
+        return apiFetch(`/cash-account/${id}`).json().put({
+            name,
+        });
+    }
+
+    static async delete(id: number) {
+        return apiFetch(`/cash-account/${id}`).json().delete();
+    }
 }

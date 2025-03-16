@@ -17,3 +17,23 @@ export async function addCashAccount(name: string) {
         cashAccountsStore.cashAccounts.push(json.data);
     }
 }
+
+export async function updateCashAccount(cashAccount: TCashAccount, name: string) {
+    const { response } = await CashAccountRequest.update(cashAccount.id, name);
+
+    if (response.value?.ok) {
+        cashAccount.name = name;
+    }
+}
+
+export async function deleteCashAccount(id: number) {
+    const { response } = await CashAccountRequest.delete(id);
+
+    if (response.value?.ok) {
+        const cashAccountsStore = useCashAccountsStore();
+
+        cashAccountsStore.setCashAccounts(
+            cashAccountsStore.cashAccounts.filter(item => item.id !== id),
+        );
+    }
+}

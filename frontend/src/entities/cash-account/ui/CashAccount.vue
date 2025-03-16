@@ -1,14 +1,19 @@
 <template>
     <div class="cash-account">
-        <div class="cash-account__name">
-            {{ cashAccount.name }}
+        <slot name="name">
+            <div class="cash-account__name">
+                {{ cashAccount.name }}
+            </div>
+        </slot>
+        <div class="cash-account__buttons">
+            <slot name="buttons"></slot>
         </div>
-        <button class="cash-account__edit">✏️</button>
+
     </div>
 </template>
 
 <script setup lang="ts">
-    import {TCashAccount} from '~/shared/api';
+    import { TCashAccount } from '~/shared/api';
 
     type TProps = {
         cashAccount: TCashAccount
@@ -29,10 +34,12 @@
     box-sizing: border-box;
     gap: 1rem;
 }
+
 .cash-account__name {
     overflow: hidden;
 }
-.cash-account__edit {
+
+.cash-account__buttons {
     font-size: 18px;
 }
 </style>

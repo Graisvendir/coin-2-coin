@@ -24,8 +24,8 @@
 </template>
 
 <script setup lang="ts">
-    import {nextTick, ref, useTemplateRef} from 'vue';
-    import {addCashAccount} from '~/features/add-cash-account/lib/add-cash-account.ts';
+    import { nextTick, ref, useTemplateRef } from 'vue';
+    import { addCashAccount } from '../lib/update-cash-account.ts';
 
     const showForm = ref<boolean>(false);
     const name = ref<string>('');
@@ -53,7 +53,6 @@
             showOrHideForm();
         }
     }
-
 </script>
 
 <style>
