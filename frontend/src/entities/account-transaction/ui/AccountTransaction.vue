@@ -28,9 +28,7 @@
 
     const { transaction } = defineProps<TProps>();
     const formattedCreatedAt = computed(() => {
-        const createdAt = new Date(transaction.created_at);
-
-        return createdAt.toLocaleDateString(
+        return transaction.created_at.toLocaleDateString(
             'ru',
             {
                 year: 'numeric',

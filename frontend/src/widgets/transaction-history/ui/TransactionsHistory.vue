@@ -5,7 +5,7 @@
             :key="transaction.id"
         >
             <div
-                v-if="index === 0 || (new Date(transaction.created_at)).getDate() !== (new Date(transactionList[index - 1].created_at)).getDate()"
+                v-if="index === 0 || transaction.created_at.getDate() !== transaction.created_at.getDate()"
                 class="account-transaction-list__date"
             >
                 {{transaction.created_at}}
@@ -28,6 +28,7 @@
 <script setup lang="ts">
     import {TAccountTransaction, TPaginatedAccountTransactions, useApiFetch} from '~/shared/api';
     import {ref} from 'vue';
+    import {AccountTransaction as AccountTransactionFn} from '~/shared/api/account-transaction.ts';
     import {AccountTransaction} from '~/entities/account-transaction';
 
     const transactionList = ref<TAccountTransaction[]>([]);
@@ -41,7 +42,7 @@
 
             if (jsonResponse.data.value) {
                 transactionList.value.push(
-                    ...jsonResponse.data.value.data,
+                    ...jsonResponse.data.value.data.map(item => AccountTransactionFn(item)),
                 );
                 moreLink.value = jsonResponse.data.value.links.next;
             }

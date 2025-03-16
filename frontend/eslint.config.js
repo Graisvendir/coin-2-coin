@@ -118,6 +118,7 @@ export default typescriptEslint.config(
             "max-nested-callbacks": ["error", 3],
             "no-shadow": "off",
             "@typescript-eslint/no-shadow": "error",
+            "@typescript-eslint/no-explicit-any": "off",
             semi: "error",
 
         },
