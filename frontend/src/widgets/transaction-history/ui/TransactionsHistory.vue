@@ -8,7 +8,7 @@
                 v-if="index === 0 || transaction.created_at.getDate() !== transactionList[index - 1].created_at.getDate()"
                 class="account-transaction-list__date"
             >
-                {{transaction.created_at}}
+                {{ transaction.created_at }}
             </div>
             <AccountTransaction
                 :transaction="transaction"
