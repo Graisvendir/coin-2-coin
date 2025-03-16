@@ -24,7 +24,13 @@ class CashAccountController extends Controller
      */
     public function store(AddCashAccountRequest $request)
     {
-        $cashAccount = CashAccount::create($request->validated());
+        $cashAccounts = Auth::user()->cashAccounts;
+        $cashAccount = CashAccount::create([
+            ...$request->validated(),
+
+            'user_id' => Auth::user()->id,
+            'order' => $cashAccounts->last()->order + 100,
+        ]);
 
         return CashAccountResource::make($cashAccount);
     }

@@ -4,6 +4,7 @@
         <div class="cash-account-list">
             <CashAccount v-for="cashAccount in cashAccounts" :key="cashAccount.id" :cash-account="cashAccount" />
         </div>
+        <AddCashAccount />
     </div>
 </template>
 
@@ -13,6 +14,7 @@
     import {storeToRefs} from 'pinia';
     import {CashAccount, loadCashAccounts, useCashAccountsStore} from '~/entities/cash-account';
     import {useAccountStatusStore} from '~/entities/account-status';
+    import { AddCashAccount } from '~/features/add-cash-account';
 
     const cashAccountsStore = useCashAccountsStore();
     const { cashAccounts } = storeToRefs(cashAccountsStore);

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Collection;
 use Laravel\Sanctum\HasApiTokens;
 
 /**
@@ -24,9 +25,9 @@ use Laravel\Sanctum\HasApiTokens;
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
  * @property-read int|null $tokens_count
- * @property-read CashAccount[] $cashAccounts
- * @property-read Tag[] $tags
- * @property-read AccountTransaction[] $accountTransactions
+ * @property-read CashAccount[]|Collection $cashAccounts
+ * @property-read Tag[]|Collection $tags
+ * @property-read AccountTransaction[]|Collection $accountTransactions
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newQuery()
@@ -83,7 +84,7 @@ class User extends Authenticatable
 
     public function cashAccounts()
     {
-        return $this->hasMany(CashAccount::class);
+        return $this->hasMany(CashAccount::class)->orderBy('order');
     }
 
     public function accountTransactions()
@@ -93,6 +94,6 @@ class User extends Authenticatable
 
     public function tags()
     {
-        return $this->hasMany(Tag::class);
+        return $this->hasMany(Tag::class)->orderBy('order');
     }
 }

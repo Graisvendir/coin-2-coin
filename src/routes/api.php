@@ -15,11 +15,7 @@ Route::middleware('auth:sanctum')
 
         Route::resources([
             'cash-account' => \App\Http\Controllers\CashAccountController::class,
-        ]);
-        Route::resources([
             'tag' => \App\Http\Controllers\TagController::class,
-        ]);
-        Route::resources([
             'account-transaction' => \App\Http\Controllers\AccountTransactionController::class,
         ]);
     });
