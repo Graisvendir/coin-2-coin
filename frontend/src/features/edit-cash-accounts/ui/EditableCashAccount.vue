@@ -29,28 +29,25 @@
     import { nextTick, ref, useTemplateRef } from 'vue';
     import { CashAccount } from '~/entities/cash-account';
     import { TCashAccount } from '~/shared/api';
+    import { deleteCashAccount, updateCashAccount } from '../lib/update-cash-account.ts';
 
     type TProps = {
         cashAccount: TCashAccount
     }
 
     const { cashAccount } = defineProps<TProps>();
-    const emit = defineEmits<{
-        edit: [name: string],
-        delete: [],
-    }>();
 
     const showForm = ref<boolean>(false);
     const name = ref<string>(cashAccount.name);
     const input = useTemplateRef('cash-account-input');
 
     function save() {
-        emit('edit', name.value);
+        updateCashAccount(cashAccount, name.value);
         showForm.value = false;
     }
 
     function deleteItem() {
-        emit('delete');
+        deleteCashAccount(cashAccount.id);
     }
 
     function showOrHideForm() {
