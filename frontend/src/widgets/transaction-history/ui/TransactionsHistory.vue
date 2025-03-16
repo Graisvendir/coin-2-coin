@@ -26,16 +26,15 @@
 </template>
 
 <script setup lang="ts">
-    import {TAccountTransaction, TPaginatedAccountTransactions, useApiFetch} from '~/shared/api';
-    import {ref} from 'vue';
-    import {AccountTransaction as AccountTransactionFn} from '~/shared/api/account-transaction.ts';
-    import {AccountTransaction} from '~/entities/account-transaction';
+    import { AccountTransactionRequest, TAccountTransaction, TPaginatedAccountTransactions } from '~/shared/api';
+    import { ref } from 'vue';
+    import { AccountTransaction as AccountTransactionFn } from '~/shared/api/account-transaction/account-transaction.ts';
 
     const transactionList = ref<TAccountTransaction[]>([]);
     const moreLink = ref<string | undefined>();
 
-    async function load(link = '/account-transaction') {
-        const response = await useApiFetch(link).json().get();
+    async function load(link?: string) {
+        const response = await AccountTransactionRequest.load(link);
 
         if (response.response.value?.ok) {
             const jsonResponse = await response.json<TPaginatedAccountTransactions>();
@@ -59,6 +58,7 @@
     flex-direction: column;
     gap: 1rem;
 }
+
 .account-transaction-list__date {
     padding: 1rem;
 }

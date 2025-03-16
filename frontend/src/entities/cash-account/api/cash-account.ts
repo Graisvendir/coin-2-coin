@@ -1,5 +1,5 @@
-import {SuccessResponse, TCashAccount, useApiFetch} from '~/shared/api';
-import {useCashAccountsStore} from '~/entities/cash-account';
+import { SuccessResponse, TCashAccount, CashAccountRequest } from '~/shared/api';
+import { useCashAccountsStore } from '~/entities/cash-account';
 
 /**
  * Загрузка списка счетов пользователя.
@@ -8,7 +8,7 @@ import {useCashAccountsStore} from '~/entities/cash-account';
 export async function loadCashAccounts() {
     const { setCashAccounts } = useCashAccountsStore();
 
-    const {response} = await useApiFetch('/cash-account').json().get();
+    const { response } = await CashAccountRequest.load();
 
     if (response.value?.ok) {
         const json = (await response.value?.json()) as SuccessResponse<TCashAccount[]>;

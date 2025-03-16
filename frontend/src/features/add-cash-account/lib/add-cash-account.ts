@@ -1,5 +1,5 @@
-import {SuccessResponse, TCashAccount, useApiFetch} from '~/shared/api';
-import {useCashAccountsStore} from '~/entities/cash-account';
+import { SuccessResponse, TCashAccount, CashAccountRequest } from '~/shared/api';
+import { useCashAccountsStore } from '~/entities/cash-account';
 
 
 /**
@@ -8,9 +8,7 @@ import {useCashAccountsStore} from '~/entities/cash-account';
  * @param name
  */
 export async function addCashAccount(name: string) {
-    const {response} = await useApiFetch('/cash-account').json().post({
-        name,
-    });
+    const { response } = await CashAccountRequest.create(name);
 
     if (response.value?.ok) {
         const json = (await response.value?.json()) as SuccessResponse<TCashAccount>;

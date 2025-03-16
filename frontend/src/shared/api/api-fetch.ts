@@ -1,13 +1,21 @@
-import {createFetch, useFetch} from '@vueuse/core';
-import {useCookies} from 'vue3-cookies';
-import {backendApiBaseUrl} from '~/shared/config';
+import { createFetch, useFetch } from '@vueuse/core';
+import { useCookies } from 'vue3-cookies';
+import { backendApiBaseUrl } from '~/shared/config';
 
+/**
+ * Запрос за JWT токеном.
+ * Токен сохраняется в куки.
+ */
 async function refreshCsrfToken() {
     await useFetch(backendApiBaseUrl + '/csrf-cookie').get().json();
 }
 
+/**
+ * Получает JWT токен API.
+ * Если токена нет - сделает запрос в API.
+ */
 async function getToken() {
-    const {cookies} = useCookies();
+    const { cookies } = useCookies();
     let token = cookies.get('XSRF-TOKEN');
 
     if (!token) {
@@ -18,7 +26,11 @@ async function getToken() {
     return token;
 }
 
-export const useApiFetch = createFetch({
+/**
+ * Запрос в API.
+ * Запрос подпишет JWT токеном.
+ */
+export const apiFetch = createFetch({
     baseUrl: backendApiBaseUrl,
     options: {
         async beforeFetch({ options }) {

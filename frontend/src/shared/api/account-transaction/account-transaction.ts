@@ -1,6 +1,6 @@
-import {Tag} from './tag.ts';
-import {TPagination} from './pagination.ts';
-import {array, date, nullable, number, object, string} from '~/shared/utils';
+import { Tag } from '../tag.ts';
+import { TPagination } from '../pagination.ts';
+import { array, date, nullable, number, object, string } from '~/shared/utils';
 
 /**
  * Данные о транзакции по счету
