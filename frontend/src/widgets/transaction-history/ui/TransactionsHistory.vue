@@ -28,7 +28,8 @@
 <script setup lang="ts">
     import { AccountTransactionRequest, TAccountTransaction, TPaginatedAccountTransactions } from '~/shared/api';
     import { ref } from 'vue';
-    import { AccountTransaction as AccountTransactionFn } from '~/shared/api/account-transaction/account-transaction.ts';
+    import { AccountTransaction as AccountTransactionFn } from '~/shared/api';
+    import { AccountTransaction } from '~/entities/account-transaction';
 
     const transactionList = ref<TAccountTransaction[]>([]);
     const moreLink = ref<string | undefined>();
