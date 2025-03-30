@@ -7,7 +7,7 @@
 <script setup lang="ts">
     import { TAccountTransaction } from '~/shared/api';
     import { CustomModal } from '~/shared/ui';
-    import { EditAccountTransactionForm } from '~/features/edit-transaction';
+    import EditAccountTransactionForm from './EditAccountTransactionForm.vue';
 
     type TProps = {
         transaction?: TAccountTransaction;

@@ -1,8 +1,39 @@
 <template>
     <form class="transaction-form" @submit.prevent="save">
-        <input name="name" placeholder="Ну и куда ты бабки потратил?">
-        <input name="name" placeholder="А когда?">
-        <input name="name" placeholder="Сколько-сколько?">
+        <div>
+            <input
+                v-model="name"
+                name="name"
+                placeholder="Ну и куда ты бабки потратил?"
+                required
+            >
+        </div>
+        <div>
+            <input
+                v-model="createdAt"
+                name="created_at"
+                type="datetime-local"
+                placeholder="А когда?"
+                required
+                value="2017-06-30T16:30"
+            >
+        </div>
+        <div>
+            <input
+                v-model="amount"
+                name="amount"
+                type="number"
+                placeholder="Сколько-сколько?"
+                required
+            >
+        </div>
+        <div>
+            <select v-model="cashAccountId" name="cash_account_id" required>
+                <option v-for="cashAccount in cashAccounts" :key="cashAccount.id" :value="cashAccount.id">
+                    {{ cashAccount.name }}
+                </option>
+            </select>
+        </div>
         <button type="submit">
             Сохранить
         </button>
@@ -10,23 +41,46 @@
 </template>
 
 <script setup lang="ts">
+    import { ref } from 'vue';
     import { TAccountTransaction } from '~/shared/api';
     import {
         addAccountTransaction,
         updateAccountTransaction,
-    } from '~/features/edit-transaction/lib/account-transaction-controller.ts';
+    } from '../lib/account-transaction-controller.ts';
+    import { useCashAccountsStore } from '~/entities/cash-account';
+    import { storeToRefs } from 'pinia';
 
     type TProps = {
         transaction?: TAccountTransaction;
     }
 
     const { transaction } = defineProps<TProps>();
+    const cashAccountsStore = useCashAccountsStore();
+    const { cashAccounts, defaultCashAccount } = storeToRefs(cashAccountsStore);
 
-    function save() {
-        if (transaction) {
-            updateAccountTransaction(transaction, {});
-        } else {
-            addAccountTransaction({});
+    const name = ref<string>(transaction?.name || '');
+    const createdAt = ref<string>(transaction?.created_at.toISOString() || (new Date()).toISOString());
+    const amount = ref<number>(transaction?.amount || 0);
+    const cashAccountId = ref<number>(transaction?.cash_account_id || defaultCashAccount?.value?.id || 0);
+
+    const emit = defineEmits<{
+        (e: 'update:modelValue', modelValue: boolean): void
+    }>();
+
+    async function save() {
+        const transactionFromInputs = {
+            name: name.value,
+            cash_account_id: cashAccountId.value,
+            created_at: createdAt.value,
+            amount: amount.value,
+        };
+
+        const response = transaction
+            ? await updateAccountTransaction(transaction, transactionFromInputs)
+            : await addAccountTransaction(transactionFromInputs);
+
+        if (response.value?.ok) {
+            emit('update:modelValue', false);
         }
     }
 </script>
@@ -34,8 +88,8 @@
 <style>
 
 .transaction-form {
-    max-width: 50rem;
-    max-height: 50rem;
-    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 </style>

@@ -7,6 +7,7 @@ import { array, date, nullable, number, object, string } from '~/shared/utils';
  */
 export const AccountTransaction = object({
     id: number,
+    cash_account_id: number,
     name: string,
     order: nullable(number),
     amount: number,
