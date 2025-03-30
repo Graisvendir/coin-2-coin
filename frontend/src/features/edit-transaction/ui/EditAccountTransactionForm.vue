@@ -1,13 +1,12 @@
 <template>
-    <div class="panel">
-        <div class="panel-overlay"></div>
-
-        <form class="transaction-panel" @submit.prevent="save">
-            <input name="name" placeholder="Ну и куда ты бабки потратил?" />
-            <input name="name" placeholder="А когда?" />
-            <input name="name" placeholder="Сколько-сколько?" />
-        </form>
-    </div>
+    <form class="transaction-form" @submit.prevent="save">
+        <input name="name" placeholder="Ну и куда ты бабки потратил?">
+        <input name="name" placeholder="А когда?">
+        <input name="name" placeholder="Сколько-сколько?">
+        <button type="submit">
+            Сохранить
+        </button>
+    </form>
 </template>
 
 <script setup lang="ts">
@@ -34,7 +33,7 @@
 
 <style>
 
-.transaction-panel {
+.transaction-form {
     max-width: 50rem;
     max-height: 50rem;
     bottom: 0;

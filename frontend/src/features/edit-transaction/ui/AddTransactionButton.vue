@@ -5,8 +5,16 @@
 </template>
 
 <script setup lang="ts">
-    function openTransactionWidget() {
 
+    import { useModal } from 'vue-final-modal';
+    import EditAccountTransactionModal from './EditAccountTransactionModal.vue';
+
+    function openTransactionWidget() {
+        const { open } = useModal({
+            component: EditAccountTransactionModal,
+        });
+
+        open();
     }
 </script>
 
