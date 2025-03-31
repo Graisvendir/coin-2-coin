@@ -15,7 +15,6 @@
                 type="datetime-local"
                 placeholder="А когда?"
                 required
-                value="2017-06-30T16:30"
             >
         </div>
         <div>
@@ -49,6 +48,7 @@
     } from '../lib/account-transaction-controller.ts';
     import { useCashAccountsStore } from '~/entities/cash-account';
     import { storeToRefs } from 'pinia';
+    import { useAccountTransactionStore } from '~/entities/account-transaction';
 
     type TProps = {
         transaction?: TAccountTransaction;
@@ -81,6 +81,8 @@
 
         if (response.value?.ok) {
             emit('update:modelValue', false);
+            const store = useAccountTransactionStore();
+            store.updateTransaction();
         }
     }
 </script>

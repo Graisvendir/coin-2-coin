@@ -27,9 +27,10 @@
 
 <script setup lang="ts">
     import { AccountTransactionRequest, TAccountTransaction, TPaginatedAccountTransactions } from '~/shared/api';
-    import { ref } from 'vue';
+    import { ref, watch } from 'vue';
     import { AccountTransaction as AccountTransactionFn } from '~/shared/api';
-    import { AccountTransaction } from '~/entities/account-transaction';
+    import { AccountTransaction, useAccountTransactionStore } from '~/entities/account-transaction';
+    import { storeToRefs } from 'pinia';
 
     const transactionList = ref<TAccountTransaction[]>([]);
     const moreLink = ref<string | undefined>();
@@ -37,19 +38,38 @@
     async function load(link?: string) {
         const response = await AccountTransactionRequest.load(link);
 
-        if (response.response.value?.ok) {
-            const jsonResponse = await response.json<TPaginatedAccountTransactions>();
-
-            if (jsonResponse.data.value) {
-                transactionList.value.push(
-                    ...jsonResponse.data.value.data.map(item => AccountTransactionFn(item)),
-                );
-                moreLink.value = jsonResponse.data.value.links.next;
-            }
+        if (!response.response.value?.ok) {
+            return;
         }
+
+        const jsonResponse = await response.json<TPaginatedAccountTransactions>();
+
+        if (!jsonResponse.data.value) {
+            return;
+        }
+
+        if (link) {
+            transactionList.value.push(
+                ...jsonResponse.data.value.data.map(item => AccountTransactionFn(item)),
+            );
+        } else {
+            transactionList.value = jsonResponse.data.value.data.map(item => AccountTransactionFn(item));
+        }
+
+        moreLink.value = jsonResponse.data.value.links.next;
     }
 
     load();
+
+    const accountTransactionsStore = useAccountTransactionStore();
+    const { needReload } = storeToRefs(accountTransactionsStore);
+
+    watch(needReload, () => {
+        if (needReload.value) {
+            load();
+            accountTransactionsStore.reloaded();
+        }
+    });
 </script>
 
 <style>
