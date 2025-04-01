@@ -14,6 +14,9 @@
                 {{ tag.name }}
             </div>
         </div>
+        <div class="account-transaction__buttons">
+            <slot name="buttons" />
+        </div>
     </div>
 </template>
 
@@ -47,8 +50,8 @@
 <style>
 .account-transaction {
     display: grid;
-    grid-template-columns: auto auto;
-    grid-template-rows: auto auto;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto auto;
     gap: 1rem;
     border: 1px solid var(--color-border);
     border-radius: 1rem;

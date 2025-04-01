@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Database\Eloquent\Builder;
+use App\Models\CashAccount;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -24,7 +24,7 @@ class UpdateAccountTransactionRequest extends FormRequest
             'cash_account_id' => [
                 'required',
                 'integer',
-                Rule::exists('staff')->where(function (Builder $query) {
+                Rule::exists(CashAccount::class, 'id')->where(function (\Illuminate\Database\Query\Builder $query) {
                     $query->where('user_id', Auth::user()->id);
                 }),
             ],

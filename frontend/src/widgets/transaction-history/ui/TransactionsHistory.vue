@@ -12,7 +12,12 @@
             </div>
             <AccountTransaction
                 :transaction="transaction"
-            />
+            >
+                <template #buttons>
+                    <DeleteTransactionButton :transaction="transaction" />
+                    <EditTransactionButton :transaction="transaction" />
+                </template>
+            </AccountTransaction>
         </div>
 
         <a
@@ -31,6 +36,8 @@
     import { AccountTransaction as AccountTransactionFn } from '~/shared/api';
     import { AccountTransaction, useAccountTransactionStore } from '~/entities/account-transaction';
     import { storeToRefs } from 'pinia';
+    import DeleteTransactionButton from '~/features/edit-transaction/ui/DeleteTransactionButton.vue';
+    import EditTransactionButton from '~/features/edit-transaction/ui/EditTransactionButton.vue';
 
     const transactionList = ref<TAccountTransaction[]>([]);
     const moreLink = ref<string | undefined>();

@@ -1,3 +1,4 @@
-import CustomModal from './CustomModal.vue';
+import CustomModal from './custom-modal/CustomModal.vue';
+export { Icon, IconEnum } from './icon';
 
 export { CustomModal };
