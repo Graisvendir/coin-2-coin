@@ -4,13 +4,13 @@
             v-for="(transaction, index) in transactionList"
             :key="transaction.id"
         >
-            <TransactionGroupTitle :date="getDayGroupDate(transaction, index)" />
+            <TransactionGroupTitle :date="getDayGroupDate(transaction as TAccountTransaction, index)" />
             <AccountTransaction
-                :transaction="transaction"
+                :transaction="transaction as TAccountTransaction"
             >
                 <template #buttons>
-                    <DeleteTransactionButton :transaction="transaction" />
-                    <EditTransactionButton :transaction="transaction" />
+                    <DeleteTransactionButton :transaction="transaction as TAccountTransaction" />
+                    <EditTransactionButton :transaction="transaction as TAccountTransaction" />
                 </template>
             </AccountTransaction>
         </div>

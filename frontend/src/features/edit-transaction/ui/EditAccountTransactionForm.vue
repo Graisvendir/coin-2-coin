@@ -50,7 +50,7 @@
     import { storeToRefs } from 'pinia';
     import { useAccountTransactionStore } from '~/entities/account-transaction';
     import { closeModelInjectionKey } from '~/shared/ui';
-    import { dayjs } from '~/shared/utils';
+    import { DateTime } from '~/shared/utils';
 
     type TProps = {
         transaction?: TAccountTransaction;
@@ -61,7 +61,7 @@
     const { cashAccounts, defaultCashAccount } = storeToRefs(cashAccountsStore);
 
     const name = ref<string>(transaction?.name || '');
-    const transactionDate = transaction?.created_at || dayjs();
+    const transactionDate = transaction?.created_at || new DateTime();
     const createdAt = ref<string>(transactionDate.format('YYYY-MM-DDTHH:mm:ss'));
     const amount = ref<number>(transaction?.amount || 0);
     const cashAccountId = ref<number>(transaction?.cash_account_id || defaultCashAccount?.value?.id || 0);

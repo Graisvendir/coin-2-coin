@@ -1,27 +1,37 @@
 <template>
     <div
-        v-if="date"
+        v-if="formattedDate"
         class="account-transaction-group-title"
     >
-        {{ date.format('DD-MM-YYYY') }}
+        {{ formattedDate }}
     </div>
 </template>
 
 <script setup lang="ts">
 
-    import { dayjs } from '~/shared/utils';
+    import { computed } from 'vue';
+    import { DateTime } from '~/shared/utils';
 
     type TProps = {
-        date?: dayjs.Dayjs;
+        date?: DateTime;
     }
 
     const { date } = defineProps<TProps>();
 
+    const formattedDate = computed(() => {
+        if (!date) {
+            return undefined;
+        }
+
+        return date.formatDateIfCurrentYear();
+    });
 </script>
 
 <style>
 
 .account-transaction-group-title {
+    font-size: 18px;
+    font-weight: bolder;
     padding: 1rem;
 }
 </style>

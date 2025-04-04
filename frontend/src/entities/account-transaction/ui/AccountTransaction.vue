@@ -7,9 +7,10 @@
             {{ transaction.amount }} ₽
         </div>
         <div class="account-transaction__date">
-            {{ transaction.created_at.format('HH:mm DD-MM-YYYY') }}
+            {{ transaction.created_at.formatTime() }}
         </div>
-        <div class="account-transaction__tags">
+
+        <div v-if="transaction.tags.length > 0" class="account-transaction__tags">
             <div v-for="tag in transaction.tags" :key="tag.id" class="tag" :style="{'background-color': tag.color}">
                 {{ tag.name }}
             </div>
