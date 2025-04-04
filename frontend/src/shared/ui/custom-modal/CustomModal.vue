@@ -1,6 +1,7 @@
 <template>
     <VueFinalModal
         class="modal"
+        content-class="modal__content"
         esc-to-close
         swipe-to-close="down"
         @update:model-value="val => toggleModal(val)"
@@ -43,6 +44,20 @@
 
 <style>
 .modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal__content {
+    display: flex;
+    flex-direction: column;
+    z-index: 20;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: .5rem;
+    padding: 1rem;
+    gap: 1rem;
 }
 
 .modal__header {
@@ -56,27 +71,6 @@
 .modal__header-close-button {
     display: block;
     flex-shrink: 0;
-}
-
-.vfm {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.vfm__overlay {
-    background-color: var(--color-shadow);
-}
-
-.vfm__content {
-    display: flex;
-    flex-direction: column;
-    z-index: 20;
-    background-color: var(--color-background);
-    border: 1px solid var(--color-border);
-    border-radius: .5rem;
-    padding: 1rem;
-    gap: 1rem;
 }
 
 </style>
