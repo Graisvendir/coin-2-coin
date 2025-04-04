@@ -1,5 +1,5 @@
 <template>
-    <button class="btn" @click="deleteTransaction">
+    <button class="btn btn--small" @click="deleteTransaction">
         <Icon :icon-name="IconEnum.bin" />
     </button>
 </template>

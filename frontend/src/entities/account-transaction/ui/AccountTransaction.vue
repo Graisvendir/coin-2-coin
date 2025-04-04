@@ -59,6 +59,7 @@
     grid-area: buttons;
     display: flex;
     justify-content: flex-end;
+    gap: 1rem;
 }
 
 .account-transaction__amount {

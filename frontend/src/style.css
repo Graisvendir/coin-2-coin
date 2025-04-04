@@ -81,6 +81,17 @@ h1 {
     transition: border-color 0.25s;
     color: var(--color-text-light);
 }
+
+.btn--small {
+    padding: 0.3em 0.6em;
+}
+
+.btn--flex {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
 .btn:hover {
     background-color: var(--color-secondary);
 }
