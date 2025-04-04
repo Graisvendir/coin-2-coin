@@ -1,12 +1,23 @@
 <template>
-    <div>
-        <h1>Registration</h1>
-        <RegisterForm />
+    <div class="register-page">
+        <h1>Регистрация</h1>
 
-        <RouterLink :to="{name: 'login'}" class="link">Back to Login</RouterLink>
+        <RegisterForm>
+            <div>
+                <RouterLink :to="{name: 'login'}" class="link">
+                    Авторизация
+                </RouterLink>
+            </div>
+        </RegisterForm>
     </div>
 </template>
 
 <script setup lang="ts">
     import {RegisterForm} from '~/features/sign-up';
 </script>
+
+<style>
+.register-page {
+    max-width: 30rem;
+}
+</style>
