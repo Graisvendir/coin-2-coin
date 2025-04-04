@@ -11,7 +11,7 @@
                 {{ title }}
             </h3>
             <button class="modal__header-close-button" @click="toggleModal(false)">
-                ❌
+                <Icon :icon-name="IconEnum.cross" />
             </button>
         </div>
         <slot />
@@ -23,6 +23,7 @@
     import { VueFinalModal } from 'vue-final-modal';
     import { provide } from 'vue';
     import { closeModelInjectionKey } from '~/shared/ui/custom-modal/types.ts';
+    import { IconEnum, Icon } from '~/shared/ui';
 
     type TProps = {
         show?: boolean;

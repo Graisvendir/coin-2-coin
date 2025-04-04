@@ -23,6 +23,8 @@
                 return '🗑';
             case IconEnum.plus:
                 return '➕';
+            case IconEnum.cross:
+                return '❌';
             default:
                 return undefined;
         }
