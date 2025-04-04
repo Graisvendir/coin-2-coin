@@ -33,7 +33,7 @@
                 </option>
             </select>
         </div>
-        <button type="submit">
+        <button class="btn" type="submit">
             Сохранить
         </button>
     </form>
