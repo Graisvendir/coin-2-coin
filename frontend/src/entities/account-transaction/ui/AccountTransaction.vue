@@ -7,7 +7,7 @@
             {{ transaction.amount }} ₽
         </div>
         <div class="account-transaction__date">
-            {{ formattedCreatedAt }}
+            {{ transaction.created_at.format('HH:mm DD-MM-YYYY') }}
         </div>
         <div class="account-transaction__tags">
             <div v-for="tag in transaction.tags" :key="tag.id" class="tag" :style="{'background-color': tag.color}">
@@ -23,26 +23,12 @@
 <script setup lang="ts">
 
     import {TAccountTransaction} from '~/shared/api';
-    import {computed} from 'vue';
 
     type TProps = {
         transaction: TAccountTransaction;
     }
 
     const { transaction } = defineProps<TProps>();
-    const formattedCreatedAt = computed(() => {
-        return transaction.created_at.toLocaleDateString(
-            'ru',
-            {
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit',
-            },
-        );
-    });
 
 </script>
 

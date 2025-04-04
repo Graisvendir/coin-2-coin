@@ -4,12 +4,7 @@
             v-for="(transaction, index) in transactionList"
             :key="transaction.id"
         >
-            <div
-                v-if="index === 0 || transaction.created_at.getDate() !== transactionList[index - 1].created_at.getDate()"
-                class="account-transaction-list__date"
-            >
-                {{ transaction.created_at }}
-            </div>
+            <TransactionGroupTitle :date="getDayGroupDate(transaction, index)" />
             <AccountTransaction
                 :transaction="transaction"
             >
@@ -38,6 +33,7 @@
     import { storeToRefs } from 'pinia';
     import DeleteTransactionButton from '~/features/edit-transaction/ui/DeleteTransactionButton.vue';
     import EditTransactionButton from '~/features/edit-transaction/ui/EditTransactionButton.vue';
+    import TransactionGroupTitle from '~/widgets/transaction-history/ui/TransactionGroupTitle.vue';
 
     const transactionList = ref<TAccountTransaction[]>([]);
     const moreLink = ref<string | undefined>();
@@ -77,6 +73,28 @@
             accountTransactionsStore.reloaded();
         }
     });
+
+    /**
+     * Отдаст дату, которую будем выводить для группировки транзакций по дням
+     *
+     * @param transaction
+     * @param transactionIndexInList
+     */
+    function getDayGroupDate(transaction: TAccountTransaction, transactionIndexInList: number) {
+        if (transactionIndexInList === 0) {
+            return transaction.created_at;
+        }
+
+        const formatString = 'YYYY-MM-DD';
+        const transactionDate = transaction.created_at.format(formatString);
+        const previousTransaction = transactionList.value[transactionIndexInList - 1];
+        const previousTransactionDate = previousTransaction.created_at.format(formatString);
+
+        return transactionDate === previousTransactionDate
+            ? undefined
+            : transaction.created_at;
+    }
+
 </script>
 
 <style>
@@ -87,7 +105,4 @@
     gap: 1rem;
 }
 
-.account-transaction-list__date {
-    padding: 1rem;
-}
 </style>

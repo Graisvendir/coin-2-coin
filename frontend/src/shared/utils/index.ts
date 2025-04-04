@@ -8,3 +8,4 @@ export {
     any,
     nullable,
 } from './type-guard.ts';
+export { dayjs } from './date.ts';
