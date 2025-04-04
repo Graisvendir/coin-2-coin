@@ -13,6 +13,7 @@
                     </transition>
                 </RouterView>
             </div>
+            <ModalsContainer />
         </div>
 
         <div v-else class="splash">
@@ -25,15 +26,16 @@
 
 <script setup lang="ts">
     import '../shared/common.css';
-    import {checkAccountStatus} from '~/entities/account-status';
-    import {AccountStatus} from '~/widgets/account-status';
+    import { checkAccountStatus } from '~/entities/account-status';
+    import { AccountStatus } from '~/widgets/account-status';
     import CashAccountList from '~/widgets/cash-account/ui/CashAccountList.vue';
-    import {useAppStore} from '~/entities/account-status/model/app-store.ts';
-    import {storeToRefs} from 'pinia';
+    import { useAppStore } from '~/entities/account-status/model/app-store.ts';
+    import { storeToRefs } from 'pinia';
+    import { ModalsContainer } from 'vue-final-modal';
 
     const appStore = useAppStore();
-    const {isReady} = storeToRefs(appStore);
-    const {ready} = appStore;
+    const { isReady } = storeToRefs(appStore);
+    const { ready } = appStore;
 
     async function init() {
         await checkAccountStatus();

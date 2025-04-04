@@ -5,4 +5,6 @@ export { type TCashAccount } from './cash-account/types.ts';
 export { CashAccountRequest } from './cash-account/requests.ts';
 export { type TTag } from './tag.ts';
 export { type TAccountTransaction, type TPaginatedAccountTransactions, AccountTransaction } from './account-transaction/account-transaction.ts';
+export { type TSaveAccountTransaction } from './account-transaction/types.ts';
 export { AccountTransactionRequest } from './account-transaction/requests.ts';
+

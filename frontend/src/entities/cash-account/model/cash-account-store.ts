@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import {ref} from 'vue';
+import { computed, ref } from 'vue';
 import {TCashAccount} from '~/shared/api';
 
 /**
@@ -11,9 +11,17 @@ export const useCashAccountsStore = defineStore('cashAccounts', () => {
     function setCashAccounts(cashAccountList: TCashAccount[]) {
         cashAccounts.value = cashAccountList;
     }
+    const defaultCashAccount = computed(() => {
+        if (!cashAccounts.value.length) {
+            return undefined;
+        }
+
+        return cashAccounts.value[0];
+    });
 
     return {
         cashAccounts,
+        defaultCashAccount,
 
         setCashAccounts,
     };

@@ -20,6 +20,7 @@ class AccountTransactionResource extends JsonResource
     {
         return [
             'id' => $this->resource->id,
+            'cash_account_id' => $this->resource->cash_account_id,
             'name' => $this->resource->name,
             'amount' => $this->resource->amount,
             'created_at' => $this->resource->created_at,
