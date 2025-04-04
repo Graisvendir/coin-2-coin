@@ -83,13 +83,17 @@ h1 {
 }
 
 .btn--small {
-    padding: 0.3em 0.6em;
+    padding: 0.5em 0.5em;
 }
 
 .btn--flex {
     display: flex;
     align-items: center;
     gap: .5rem;
+}
+
+.btn--icon {
+    line-height: 0;
 }
 
 .btn:hover {
@@ -116,6 +120,6 @@ input, select {
     color: var(--color-text);
 }
 
-select {
-
+svg {
+    font-size: 1.5em;
 }
