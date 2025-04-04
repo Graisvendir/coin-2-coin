@@ -20,8 +20,11 @@
 <script setup lang="ts">
 
     import { VueFinalModal } from 'vue-final-modal';
+    import { provide } from 'vue';
+    import { closeModelInjectionKey } from '~/shared/ui/custom-modal/types.ts';
 
     type TProps = {
+        show?: boolean;
         title?: string;
     }
 
@@ -33,6 +36,8 @@
     function toggleModal(openedOrClosed: boolean) {
         emit('update:modelValue', openedOrClosed);
     }
+
+    provide(closeModelInjectionKey, () => toggleModal(false));
 
 </script>
 

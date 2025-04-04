@@ -40,7 +40,7 @@
 </template>
 
 <script setup lang="ts">
-    import { ref } from 'vue';
+    import { inject, ref } from 'vue';
     import { TAccountTransaction } from '~/shared/api';
     import {
         addAccountTransaction,
@@ -49,6 +49,7 @@
     import { useCashAccountsStore } from '~/entities/cash-account';
     import { storeToRefs } from 'pinia';
     import { useAccountTransactionStore } from '~/entities/account-transaction';
+    import { closeModelInjectionKey } from '~/shared/ui';
     import { dayjs } from '~/shared/utils';
 
     type TProps = {
@@ -65,9 +66,7 @@
     const amount = ref<number>(transaction?.amount || 0);
     const cashAccountId = ref<number>(transaction?.cash_account_id || defaultCashAccount?.value?.id || 0);
 
-    const emit = defineEmits<{
-        (e: 'update:modelValue', modelValue: boolean): void
-    }>();
+    const closeModal = inject(closeModelInjectionKey);
 
     async function save() {
         const transactionFromInputs = {
@@ -82,7 +81,7 @@
             : await addAccountTransaction(transactionFromInputs);
 
         if (response.value?.ok) {
-            emit('update:modelValue', false);
+            closeModal?.();
             const store = useAccountTransactionStore();
             store.updateTransaction();
         }
