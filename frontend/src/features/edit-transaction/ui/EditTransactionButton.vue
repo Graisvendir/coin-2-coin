@@ -1,6 +1,6 @@
 <template>
-    <button class="btn" @click="openTransactionWidget">
-        <Icon :icon-name="IconEnum.pencil" />
+    <button class="btn btn--small" @click="openTransactionWidget">
+        <Icon :icon-name="IconEnum.edit" />
     </button>
 </template>
 

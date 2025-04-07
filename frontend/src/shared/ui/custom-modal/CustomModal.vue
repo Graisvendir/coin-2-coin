@@ -10,8 +10,8 @@
             <h3 class="modal__header-title">
                 {{ title }}
             </h3>
-            <button class="modal__header-close-button" @click="toggleModal(false)">
-                ❌
+            <button class="btn btn--no-background modal__header-close-button" @click="toggleModal(false)">
+                <Icon :icon-name="IconEnum.close" />
             </button>
         </div>
         <slot />
@@ -23,6 +23,7 @@
     import { VueFinalModal } from 'vue-final-modal';
     import { provide } from 'vue';
     import { closeModelInjectionKey } from '~/shared/ui/custom-modal/types.ts';
+    import { IconEnum, Icon } from '~/shared/ui';
 
     type TProps = {
         show?: boolean;
@@ -71,6 +72,7 @@
 .modal__header-close-button {
     display: block;
     flex-shrink: 0;
+    padding: 0;
 }
 
 </style>

@@ -1,4 +1,4 @@
-import { dayjs } from './date';
+import { DateTime } from './date/date-time.ts';
 
 type TypeGuard<T> = (val: unknown) => T;
 
@@ -40,7 +40,7 @@ export const boolean: TypeGuard<boolean> = (val: unknown) => {
     return val;
 };
 
-export const date: TypeGuard<dayjs.Dayjs> = (val: unknown) => {
+export const date: TypeGuard<DateTime> = (val: unknown) => {
     let timestamp;
 
     if (typeof val === 'number') {
@@ -53,7 +53,7 @@ export const date: TypeGuard<dayjs.Dayjs> = (val: unknown) => {
 
     if (!timestamp || isNaN(timestamp)) throw new Error();
 
-    return dayjs(timestamp);
+    return new DateTime(timestamp);
 };
 
 export const nullable = <T>(valType: TypeGuard<T>): TypeGuard<T|null|undefined> => {

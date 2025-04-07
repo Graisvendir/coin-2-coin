@@ -4,7 +4,7 @@
             <div class="layout__sidebar">
                 <h1>Coin-2-coin</h1>
                 <AccountStatus />
-                <CashAccountList />
+                <CashAccountList v-if="isAuth" />
             </div>
             <div class="layout__main">
                 <RouterView v-slot="{ Component }">
@@ -26,7 +26,7 @@
 
 <script setup lang="ts">
     import '../shared/common.css';
-    import { checkAccountStatus } from '~/entities/account-status';
+    import { checkAccountStatus, useAccountStatusStore } from '~/entities/account-status';
     import { AccountStatus } from '~/widgets/account-status';
     import CashAccountList from '~/widgets/cash-account/ui/CashAccountList.vue';
     import { useAppStore } from '~/entities/account-status/model/app-store.ts';
@@ -36,6 +36,8 @@
     const appStore = useAppStore();
     const { isReady } = storeToRefs(appStore);
     const { ready } = appStore;
+    const accountStatusStore = useAccountStatusStore();
+    const { isAuth } = storeToRefs(accountStatusStore);
 
     async function init() {
         await checkAccountStatus();

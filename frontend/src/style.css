@@ -1,26 +1,35 @@
 :root {
+    /**
+        источник цветовой палитры
+        --imperial-red: #f03a47ff;
+        --mint-cream: #f7fff7ff;
+        --asparagus: #63a46cff;
+        --onyx: #353b3cff;
+        --rich-black: #0e0f19ff;
+     */
+
     /* Светлая палитра */
-    --color-background: #FFFFFF; /* Фоновый цвет */
-    --color-primary: #6200EE;    /* Основной цвет */
-    --color-secondary: #03DAC5;  /* Вторичный цвет */
-    --color-text: #000000;       /* Цвет текста */
+    --color-background: #f7fff7; /* Фоновый цвет */
+    --color-primary: #63a46c;    /* Основной цвет */
+    --color-secondary: #63a46caa;/* Вторичный цвет */
+    --color-text: #0e0f19;       /* Цвет текста */
     --color-text-light: #121212; /* Светлый текст */
-    --color-border: #DDDDDD;     /* Цвет границ */
+    --color-border: #353b3c;     /* Цвет границ */
     --color-shadow: rgba(0, 0, 0, 0.1); /* Цвет тени */
-    --color-error: #F44336;      /* Цвет ошибки */
+    --color-error: #f03a47;      /* Цвет ошибки */
     --color-warning: #FF9800;    /* Цвет предупреждения */
     --color-info: #2196F3;       /* Цвет информации */
 
     @media (prefers-color-scheme: dark) {
         /* Темная палитра */
-        --color-background: #121212; /* Фоновый цвет */
-        --color-primary: #BB86FC;    /* Основной цвет */
-        --color-secondary: #03DAC5;  /* Вторичный цвет */
-        --color-text: #E0E0E0;       /* Цвет текста */
-        --color-text-light: #FFFFFF; /* Светлый текст */
-        --color-border: #333333;     /* Цвет границ */
+        --color-background: #0e0f19; /* Фоновый цвет */
+        --color-primary: #63a46c;    /* Основной цвет */
+        --color-secondary: #63a46caa;  /* Вторичный цвет */
+        --color-text: #f7fff7;       /* Цвет текста */
+        --color-text-light: #f7fff7aa; /* Светлый текст */
+        --color-border: #353b3c;     /* Цвет границ */
         --color-shadow: rgba(0, 0, 0, 0.5); /* Цвет тени */
-        --color-error: #CF6679;      /* Цвет ошибки */
+        --color-error: #f03a47;      /* Цвет ошибки */
         --color-warning: #FFA000;    /* Цвет предупреждения */
         --color-info: #2196F3;       /* Цвет информации */
     }
@@ -61,6 +70,7 @@ h1 {
 }
 
 .btn {
+    transition: all .3s;
     border-radius: 8px;
     border: none;
     padding: 0.6em 1.2em;
@@ -69,11 +79,29 @@ h1 {
     font-family: inherit;
     background-color: var(--color-primary);
     cursor: pointer;
-    transition: border-color 0.25s;
     color: var(--color-text-light);
 }
+
+.btn--small {
+    padding: 0.5em 0.5em;
+}
+
+.btn--flex {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+.btn--icon {
+    line-height: 0;
+}
+
+.btn--no-background {
+    background-color: unset;
+}
+
 .btn:hover {
-    background-color: var(--color-secondary);
+    opacity: .5;
 }
 .btn:focus,
 .btn:focus-visible {
@@ -82,4 +110,20 @@ h1 {
 
 .card {
     padding: 2em;
+}
+
+input, select {
+    display: block;
+    width: 100%;
+    padding: .6rem 1rem;
+    box-sizing: border-box;
+    font-size: 1rem;
+    border-radius: .5rem;
+    border: 1px solid var(--color-border);
+    background: var(--color-background);
+    color: var(--color-text);
+}
+
+svg {
+    font-size: 1.5em;
 }

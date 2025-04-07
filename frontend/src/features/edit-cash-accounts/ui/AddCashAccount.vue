@@ -1,7 +1,10 @@
 <template>
     <div class="add-cash-account">
-        <button v-if="!showForm" class="btn" @click="showOrHideForm">
-            ➕ Добавить
+        <button v-if="!showForm" class="btn btn--flex" @click="showOrHideForm">
+            <Icon :icon-name="IconEnum.add" />
+            <span>
+                Добавить
+            </span>
         </button>
         <form
             v-else
@@ -26,6 +29,7 @@
 <script setup lang="ts">
     import { nextTick, ref, useTemplateRef } from 'vue';
     import { addCashAccount } from '../lib/update-cash-account.ts';
+    import { Icon, IconEnum } from '~/shared/ui';
 
     const showForm = ref<boolean>(false);
     const name = ref<string>('');

@@ -1,19 +1,23 @@
 <template>
     <div class="account-status">
-        <div class="account-status__name">{{ isAuth ? account?.email : 'Неавторизованный пёс' }}</div>
-        <button v-if="isAuth" class="btn" @click="logout()">Выйти</button>
+        <div class="account-status__name">
+            {{ isAuth ? account?.email : 'Неавторизованный пёс' }}
+        </div>
+        <button v-if="isAuth" class="btn btn--small" @click="logout()">
+            Выйти
+        </button>
     </div>
 </template>
 
 <script setup lang="ts">
-    import {useAccountStatusStore} from '~/entities/account-status';
-    import {storeToRefs} from 'pinia';
-    import {useLogout} from '~/features/logout';
+    import { useAccountStatusStore } from '~/entities/account-status';
+    import { storeToRefs } from 'pinia';
+    import { useLogout } from '~/features/logout';
 
     const { logout } = useLogout();
 
     const store = useAccountStatusStore();
-    const {isAuth, account} = storeToRefs(store);
+    const { isAuth, account } = storeToRefs(store);
 </script>
 
 <style>
@@ -27,6 +31,7 @@
     box-sizing: border-box;
     gap: 1rem;
 }
+
 .account-status__name {
     overflow: hidden;
 }
