@@ -4,5 +4,6 @@ export enum IconEnum {
     close = 'close',
     delete = 'delete',
     edit = 'edit',
+    ok = 'ok',
 }
 

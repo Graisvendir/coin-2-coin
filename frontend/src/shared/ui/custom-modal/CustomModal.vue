@@ -72,6 +72,7 @@
 .modal__header-close-button {
     display: block;
     flex-shrink: 0;
+    padding: 0;
 }
 
 </style>

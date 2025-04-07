@@ -10,15 +10,15 @@
             >
         </template>
         <template #buttons>
-            <button v-if="!showForm" @click="showOrHideForm">
-                ✏️
+            <button v-if="!showForm" class="btn btn--small btn--no-background" @click="showOrHideForm">
+                <Icon :icon-name="IconEnum.edit" />
             </button>
             <div v-else class="cash-account-buttons">
-                <button @click="deleteItem">
-                    🗑
+                <button class="btn btn--small btn--no-background" @click="deleteItem">
+                    <Icon :icon-name="IconEnum.delete" />
                 </button>
-                <button @click="save">
-                    ✅
+                <button class="btn btn--small btn--no-background" @click="save">
+                    <Icon :icon-name="IconEnum.ok" />
                 </button>
             </div>
         </template>
@@ -30,6 +30,7 @@
     import { CashAccount } from '~/entities/cash-account';
     import { TCashAccount } from '~/shared/api';
     import { deleteCashAccount, updateCashAccount } from '../lib/update-cash-account.ts';
+    import { Icon, IconEnum } from '~/shared/ui';
 
     type TProps = {
         cashAccount: TCashAccount

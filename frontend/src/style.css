@@ -70,6 +70,7 @@ h1 {
 }
 
 .btn {
+    transition: all .3s;
     border-radius: 8px;
     border: none;
     padding: 0.6em 1.2em;
@@ -78,7 +79,6 @@ h1 {
     font-family: inherit;
     background-color: var(--color-primary);
     cursor: pointer;
-    transition: border-color 0.25s;
     color: var(--color-text-light);
 }
 
@@ -97,12 +97,11 @@ h1 {
 }
 
 .btn--no-background {
-    padding: 0;
     background-color: unset;
 }
 
-.btn:hover:not(.btn--no-background) {
-    background-color: var(--color-secondary);
+.btn:hover {
+    opacity: .5;
 }
 .btn:focus,
 .btn:focus-visible {
