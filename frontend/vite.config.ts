@@ -2,16 +2,20 @@ import { fileURLToPath, URL } from 'url';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import eslintPlugin from 'vite-plugin-eslint';
-import createSvgSpritePlugin from 'vite-plugin-svg-sprite';
+import { svgSpritePlugin } from './vite-plugins/svg-sprite.ts';
+
 
 // https://vite.dev/config/
 export default defineConfig({
     plugins: [
         vue(),
         eslintPlugin(),
-        createSvgSpritePlugin({
-            exportType: 'vue', // or 'react' or 'vue'
-            include: '**/icons/*.svg',
+        svgSpritePlugin({
+            include: 'assets/sprite',
+            output: {
+                dir: 'public/assets',
+                spriteName: 'icon-sprite.svg',
+            },
         }),
     ],
     resolve: {

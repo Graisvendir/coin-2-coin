@@ -1,34 +1,20 @@
 <template>
-    <div class="icon">
-        {{ iconContent() }}
-    </div>
+    <svg :class="`icon icon--${iconName}`">
+        <use :href="`/assets/icon-sprite.svg#${iconName}`" />
+    </svg>
 </template>
 
 <script setup lang="ts">
 
     import { IconEnum } from './types.ts';
 
+    // TODO: придумать, как не перезапуская фронтенд, обновлять файлик иконок
     type TProps = {
         iconName: IconEnum;
     }
 
     const { iconName } = defineProps<TProps>();
 
-    // TODO: заменить потом все иконки на нормальные, со спрайтом
-    function iconContent(): string | undefined {
-        switch (iconName) {
-            case IconEnum.pencil:
-                return '✏️';
-            case IconEnum.bin:
-                return '🗑';
-            case IconEnum.plus:
-                return '➕';
-            case IconEnum.cross:
-                return '❌';
-            default:
-                return undefined;
-        }
-    }
 </script>
 
 <style>

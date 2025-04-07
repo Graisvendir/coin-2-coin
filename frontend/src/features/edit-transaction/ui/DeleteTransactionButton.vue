@@ -1,6 +1,6 @@
 <template>
     <button class="btn btn--small btn--icon" @click="deleteTransaction">
-        <IconDelete />
+        <Icon :icon-name="IconEnum.delete" />
     </button>
 </template>
 
@@ -9,7 +9,7 @@
     import { deleteAccountTransaction } from '../lib/account-transaction-controller.ts';
     import { useAccountTransactionStore } from '~/entities/account-transaction';
     import { TAccountTransaction } from '~/shared/api';
-    import IconDelete from '~/shared/ui/icons/delete.svg';
+    import { Icon, IconEnum } from '~/shared/ui';
 
     type TProps = {
         transaction: TAccountTransaction;

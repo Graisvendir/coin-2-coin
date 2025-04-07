@@ -11,3 +11,4 @@ src/.phpstorm.meta.php
 src/app/Console/Commands/TestCommand.php
 docker/postgres
 frontend/node_modules
+frontend/public/assets/icon-sprite.svg

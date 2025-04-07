@@ -1,7 +1,7 @@
 <template>
     <div class="add-cash-account">
         <button v-if="!showForm" class="btn btn--flex" @click="showOrHideForm">
-            <Icon :icon-name="IconEnum.plus" />
+            <Icon :icon-name="IconEnum.add" />
             <span>
                 Добавить
             </span>

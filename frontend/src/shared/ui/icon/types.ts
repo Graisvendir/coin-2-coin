@@ -1,8 +1,8 @@
 
 export enum IconEnum {
-    bin = 'bin',
-    pencil = 'pencil',
-    plus = 'plus',
-    cross = 'cross',
+    add = 'add',
+    close = 'close',
+    delete = 'delete',
+    edit = 'edit',
 }
 

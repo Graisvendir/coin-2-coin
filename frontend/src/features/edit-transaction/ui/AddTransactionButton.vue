@@ -1,6 +1,6 @@
 <template>
     <button class="btn btn--flex" @click="openTransactionWidget">
-        <Icon :icon-name="IconEnum.plus" />
+        <Icon :icon-name="IconEnum.add" />
         <span>
             Добавить
         </span>

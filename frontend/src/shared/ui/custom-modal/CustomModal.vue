@@ -11,7 +11,7 @@
                 {{ title }}
             </h3>
             <button class="modal__header-close-button" @click="toggleModal(false)">
-                <Icon :icon-name="IconEnum.cross" />
+                <Icon :icon-name="IconEnum.close" />
             </button>
         </div>
         <slot />

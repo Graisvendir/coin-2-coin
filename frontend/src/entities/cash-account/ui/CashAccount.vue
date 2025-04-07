@@ -6,9 +6,8 @@
             </div>
         </slot>
         <div class="cash-account__buttons">
-            <slot name="buttons"></slot>
+            <slot name="buttons" />
         </div>
-
     </div>
 </template>
 
