@@ -10,7 +10,7 @@
             <h3 class="modal__header-title">
                 {{ title }}
             </h3>
-            <button class="modal__header-close-button" @click="toggleModal(false)">
+            <button class="btn btn--no-background modal__header-close-button" @click="toggleModal(false)">
                 <Icon :icon-name="IconEnum.close" />
             </button>
         </div>

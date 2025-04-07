@@ -96,7 +96,12 @@ h1 {
     line-height: 0;
 }
 
-.btn:hover {
+.btn--no-background {
+    padding: 0;
+    background-color: unset;
+}
+
+.btn:hover:not(.btn--no-background) {
     background-color: var(--color-secondary);
 }
 .btn:focus,
