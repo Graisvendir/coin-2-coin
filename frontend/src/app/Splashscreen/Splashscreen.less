@@ -1,0 +1,28 @@
+.splash {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+.splash__text {
+    font-size: 3rem;
+    font-weight: 600;
+    line-height: 1;
+    padding: .3em;
+    box-sizing: border-box;
+    background: var(--color-primary);
+    border-radius: .2em;
+    animation: 1s ease splash alternate-reverse infinite;
+}
+
+@keyframes splash {
+    from {
+        opacity: .3;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

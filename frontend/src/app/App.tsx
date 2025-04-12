@@ -1,7 +1,5 @@
-import React from 'react';
+import { Splashscreen } from './Splashscreen/Splashscreen.tsx';
 
 export function App() {
-    return <div>
-        Вот мы и переехали на реакт
-    </div>;
+    return <Splashscreen/>;
 }
