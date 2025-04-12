@@ -1,39 +1,43 @@
 <template>
-    <div class="account-transaction-list">
-        <div
-            v-for="(transaction, index) in transactionList"
-            :key="transaction.id"
-        >
-            <TransactionGroupTitle :date="getDayGroupDate(transaction as TAccountTransaction, index)" />
-            <AccountTransaction
-                :transaction="transaction as TAccountTransaction"
-            >
-                <template #buttons>
-                    <DeleteTransactionButton :transaction="transaction as TAccountTransaction" />
-                    <EditTransactionButton :transaction="transaction as TAccountTransaction" />
-                </template>
-            </AccountTransaction>
-        </div>
+    <div>
+        <Filter />
 
-        <a
-            v-if="moreLink"
-            :href="moreLink"
-            @click.prevent="load(moreLink)"
-        >
-            Следующие
-        </a>
+        <div class="account-transaction-list">
+            <div
+                v-for="(transaction, index) in transactionList"
+                :key="transaction.id"
+            >
+                <TransactionGroupTitle :date="getDayGroupDate(transaction as TAccountTransaction, index)" />
+                <AccountTransaction
+                    :transaction="transaction as TAccountTransaction"
+                >
+                    <template #buttons>
+                        <DeleteTransactionButton :transaction="transaction as TAccountTransaction" />
+                        <EditTransactionButton :transaction="transaction as TAccountTransaction" />
+                    </template>
+                </AccountTransaction>
+            </div>
+
+            <a
+                v-if="moreLink"
+                :href="moreLink"
+                @click.prevent="load(moreLink)"
+            >
+                Следующие
+            </a>
+        </div>
     </div>
 </template>
 
 <script setup lang="ts">
-    import { AccountTransactionRequest, TAccountTransaction, TPaginatedAccountTransactions } from '~/shared/api';
     import { ref, watch } from 'vue';
-    import { AccountTransaction as AccountTransactionFn } from '~/shared/api';
-    import { AccountTransaction, useAccountTransactionStore } from '~/entities/account-transaction';
     import { storeToRefs } from 'pinia';
+    import { AccountTransactionRequest, TAccountTransaction, TPaginatedAccountTransactions, AccountTransaction as AccountTransactionFn } from '~/shared/api';
+    import { AccountTransaction, useAccountTransactionStore } from '~/entities/account-transaction';
     import DeleteTransactionButton from '~/features/edit-transaction/ui/DeleteTransactionButton.vue';
     import EditTransactionButton from '~/features/edit-transaction/ui/EditTransactionButton.vue';
-    import TransactionGroupTitle from '~/widgets/transaction-history/ui/TransactionGroupTitle.vue';
+    import TransactionGroupTitle from './TransactionGroupTitle.vue';
+    import Filter from './filter/Filter.vue';
 
     const transactionList = ref<TAccountTransaction[]>([]);
     const moreLink = ref<string | undefined>();
