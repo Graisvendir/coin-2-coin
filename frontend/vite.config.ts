@@ -22,4 +22,13 @@ export default defineConfig({
             { find: '~', replacement: fileURLToPath(new URL('./src', import.meta.url)) },
         ],
     },
+    css: {
+        preprocessorOptions: {
+            less: {
+                math: "always",
+                relativeUrls: true,
+                javascriptEnabled: true
+            },
+        },
+    }
 });
