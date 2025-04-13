@@ -1,13 +1,13 @@
-import { createFetch, useFetch } from '@vueuse/core';
-import { useCookies } from 'vue3-cookies';
 import { backendApiBaseUrl } from '~/shared/config';
+import { Cookie } from '../utils';
 
 /**
  * Запрос за JWT токеном.
  * Токен сохраняется в куки.
  */
 async function refreshCsrfToken() {
-    await useFetch(backendApiBaseUrl + '/csrf-cookie').get().json();
+    await fetch(backendApiBaseUrl + '/csrf-cookie');
+    // await useFetch(backendApiBaseUrl + '/csrf-cookie').get().json();
 }
 
 /**
@@ -15,12 +15,11 @@ async function refreshCsrfToken() {
  * Если токена нет - сделает запрос в API.
  */
 async function getToken() {
-    const { cookies } = useCookies();
-    let token = cookies.get('XSRF-TOKEN');
+    let token = Cookie.parse().get('XSRF-TOKEN');
 
     if (!token) {
         await refreshCsrfToken();
-        token = cookies.get('XSRF-TOKEN');
+        token = Cookie.parse().get('XSRF-TOKEN');
     }
 
     return token;
@@ -30,24 +29,22 @@ async function getToken() {
  * Запрос в API.
  * Запрос подпишет JWT токеном.
  */
-export const apiFetch = createFetch({
-    baseUrl: backendApiBaseUrl,
-    options: {
-        async beforeFetch({ options }) {
-            const token = await getToken();
+export async function apiFetch(url: string, options?: RequestInit) {
+    const token = await getToken();
 
-            options.headers = {
-                ...options.headers,
-                Accept: 'application/json',
-                ['Content-Type']: 'application/json',
-                ['X-Requested-With']: 'XMLHttpRequest',
-                ['X-XSRF-TOKEN']: token,
-            };
+    console.log('!!!!!! token', token); // TODO: remove console.log
 
-            return { options };
-        },
-    },
-    fetchOptions: {
-        mode: 'cors',
-    },
-});
+    return fetch(
+        backendApiBaseUrl + url,
+        {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                // 'X-Requested-With': 'XMLHttpRequest',
+                'X-XSRF-TOKEN': token,
+            },
+            mode: 'cors',
+            ...options,
+        }
+    )
+}

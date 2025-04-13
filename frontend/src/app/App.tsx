@@ -1,6 +1,7 @@
 import { Splashscreen } from './Splashscreen/Splashscreen.tsx';
 import './app.less';
 import { Route, Routes } from 'react-router';
+import { LoginPage } from '~/pages/account';
 
 export function App() {
     const isReady = true;
@@ -17,9 +18,9 @@ export function App() {
         </div>
         <div className="layout__main">
             <Routes>
-                <Route index element={<div>Тут будет страница транзакций</div>} />
-                    <Route path="login" element={<div>Тут будет логин</div>} />
-                    <Route path="register" element={<div>Тут будет регистрация</div>} />
+                <Route index element={<LoginPage />} />
+                <Route path="login" element={<LoginPage />} />
+                <Route path="register" element={<div>Тут будет регистрация</div>} />
             </Routes>
         </div>
     </div>

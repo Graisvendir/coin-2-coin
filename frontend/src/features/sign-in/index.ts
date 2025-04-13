@@ -1,5 +1,1 @@
-import LoginForm from './ui/LoginForm.vue';
-
-export {
-    LoginForm,
-};
+export { LoginForm } from './ui/LoginForm.tsx'

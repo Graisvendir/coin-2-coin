@@ -26,9 +26,12 @@ export class AccountStatusRequest {
      * @param password
      */
     static async login(email: string, password: string) {
-        return apiFetch('/login').json().post({
-            email,
-            password,
+        return apiFetch('/login', {
+            method: 'POST',
+            body: JSON.stringify({
+                email,
+                password,
+            })
         });
     }
 

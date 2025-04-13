@@ -1,3 +1,5 @@
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+
 import { DateTime } from './date/date-time.ts';
 
 type TypeGuard<T> = (val: unknown) => T;

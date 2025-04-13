@@ -9,3 +9,4 @@ export {
     nullable,
 } from './type-guard.ts';
 export { DateTime } from './date/date-time.ts';
+export { Cookie } from './cookie.ts';
