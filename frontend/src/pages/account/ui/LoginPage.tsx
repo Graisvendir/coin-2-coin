@@ -9,9 +9,6 @@ export function LoginPage() {
         <LoginForm>
             <div>
                 <Link to="/register" className="link">Регистрация</Link>
-                {/*<RouterLink :to="{name: 'register'}" class="link">*/}
-                {/*    Регистрация*/}
-                {/*</RouterLink>*/}
             </div>
         </LoginForm>
     </div>;

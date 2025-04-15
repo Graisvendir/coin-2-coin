@@ -1,5 +1,1 @@
-import RegisterForm from './ui/RegisterForm.vue';
-
-export {
-    RegisterForm,
-};
+export { RegisterForm } from './ui/RegisterForm.tsx';

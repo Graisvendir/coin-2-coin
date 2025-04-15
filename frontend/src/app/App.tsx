@@ -1,7 +1,7 @@
 import { Splashscreen } from './Splashscreen/Splashscreen.tsx';
 import './app.less';
 import { Route, Routes, useNavigate } from 'react-router';
-import { LoginPage } from '~/pages/account';
+import { LoginPage, RegisterPage } from '~/pages/account';
 import { useEffect, useState } from 'react';
 import { AccountStatusStore, checkAccountStatus } from '~/entities/account-status';
 import { AccountStatus } from '~/widgets/account-status';
@@ -43,7 +43,7 @@ export function App() {
             <Routes>
                 <Route index element={<div>Ну шо, аниме?</div>} />
                 <Route path="login" element={<LoginPage />} />
-                <Route path="register" element={<div>Тут будет регистрация</div>} />
+                <Route path="register" element={<RegisterPage />} />
             </Routes>
         </div>
     </div>

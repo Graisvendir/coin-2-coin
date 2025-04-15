@@ -1,3 +1,4 @@
-export { LoginPage } from './LoginPage.tsx';
-// import RegisterPage from './RegisterPage.vue';
+export { LoginPage } from './ui/LoginPage.tsx';
+export { RegisterPage } from './ui/RegisterPage.tsx';
+
 
