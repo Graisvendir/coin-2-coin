@@ -4,6 +4,7 @@ import { Route, Routes, useNavigate } from 'react-router';
 import { LoginPage } from '~/pages/account';
 import { useEffect, useState } from 'react';
 import { AccountStatusStore, checkAccountStatus } from '~/entities/account-status';
+import { AccountStatus } from '~/widgets/account-status';
 
 export function App() {
     const [isReady, setReady] = useState(false);
@@ -35,7 +36,7 @@ export function App() {
     return <div className="layout">
         <div className="layout__sidebar">
             <h1>Coin-2-coin</h1>
-            {/*<AccountStatus/>*/}
+            <AccountStatus />
             {/*<CashAccountList v-if="isAuth"/>*/}
         </div>
         <div className="layout__main">

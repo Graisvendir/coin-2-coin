@@ -1,5 +1,1 @@
-import AccountStatus from './ui/AccountStatus.vue';
-
-export {
-    AccountStatus,
-};
+export { AccountStatus } from './ui/AccountStatus.tsx';

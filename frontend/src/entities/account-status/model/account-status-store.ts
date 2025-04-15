@@ -1,13 +1,11 @@
 import { TAccountStatus } from '~/shared/api';
 import { action, computed, makeObservable, observable } from 'mobx';
 
-type PrivateFields = 'account';
-
 /**
  * Стор для хранения данных об аккаунте, через который пользователь авторизован
  */
 export class AccountStatusStore {
-    private account: TAccountStatus | undefined = undefined;
+    account: TAccountStatus | undefined = undefined;
 
     private static instance: AccountStatusStore;
 
@@ -20,7 +18,7 @@ export class AccountStatusStore {
     }
 
     private constructor() {
-        makeObservable<this, PrivateFields>(this, {
+        makeObservable(this, {
             account: observable,
             isAuth: computed,
             setAccount: action,

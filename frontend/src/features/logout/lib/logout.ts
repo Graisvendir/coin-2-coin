@@ -1,14 +1,15 @@
 import { AccountStatusRequest } from '~/shared/api';
+import { useCallback } from 'react';
 
 export function useLogout() {
 
-    async function logout() {
-        const {response} = await AccountStatusRequest.logout();
+    const logout = useCallback(async () => {
+        const response = await AccountStatusRequest.logout();
 
-        if (response.value?.ok) {
+        if (response.ok) {
             document.location.reload();
         }
-    }
+    }, []);
 
     return {
         logout,
