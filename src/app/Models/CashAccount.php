@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use App\Observers\CashAccountObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 /**
  *
@@ -15,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $order
  * @property int $user_id
  * @property-read User $user
+ * @property-read AccountTransaction[]|Collection $transactions
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CashAccount newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CashAccount newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CashAccount query()
@@ -24,6 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CashAccount whereUpdatedAt($value)
  * @mixin \Eloquent
  */
+#[ObservedBy([CashAccountObserver::class])]
 class CashAccount extends Model
 {
     use HasFactory;
@@ -33,5 +38,10 @@ class CashAccount extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(AccountTransaction::class);
     }
 }
