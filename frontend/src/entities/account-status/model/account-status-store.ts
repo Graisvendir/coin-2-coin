@@ -1,24 +1,37 @@
-import { defineStore } from 'pinia';
 import { TAccountStatus } from '~/shared/api';
-import { computed, ref } from 'vue';
+import { action, computed, makeObservable, observable } from 'mobx';
+
+type PrivateFields = 'account';
 
 /**
  * Стор для хранения данных об аккаунте, через который пользователь авторизован
  */
-export const useAccountStatusStore = defineStore('accountStatus', () => {
-    const account = ref<TAccountStatus | null>(null);
-    const isAuth = computed(() => {
-        return account.value !== null;
-    });
+export class AccountStatusStore {
+    private account: TAccountStatus | undefined = undefined;
 
-    function setAuthorization(accountStatus: TAccountStatus | null) {
-        account.value = accountStatus;
+    private static instance: AccountStatusStore;
+
+    static getInstance() {
+        if (!AccountStatusStore.instance) {
+            AccountStatusStore.instance = new AccountStatusStore();
+        }
+
+        return AccountStatusStore.instance;
     }
 
-    return {
-        account,
-        isAuth,
+    private constructor() {
+        makeObservable<this, PrivateFields>(this, {
+            account: observable,
+            isAuth: computed,
+            setAccount: action,
+        })
+    }
 
-        setAuthorization,
-    };
-});
+    get isAuth() {
+        return Boolean(this.account);
+    }
+
+    setAccount(account: TAccountStatus | undefined) {
+        this.account = account;
+    }
+}

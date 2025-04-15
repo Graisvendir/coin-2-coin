@@ -1,5 +1,7 @@
-import { ChangeEvent, ReactNode, useCallback, useState } from 'react';
+import { ChangeEvent, FormEvent, ReactNode, useCallback, useState } from 'react';
 import { AccountStatusRequest, SuccessResponse, TAccountStatus } from '~/shared/api';
+import { AccountStatusStore } from '~/entities/account-status';
+import { useNavigate } from 'react-router';
 
 interface Props {
     children?: ReactNode;
@@ -8,20 +10,19 @@ interface Props {
 export function LoginForm({children}: Props) {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+    const navigate = useNavigate();
 
-    const onSubmit = useCallback(async (event: SubmitEvent) => {
+    const onSubmit = useCallback(async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const { response } = await AccountStatusRequest.login(email, password);
+        const response = await AccountStatusRequest.login(email, password);
 
-        if (response.value?.ok) {
-            const json = (await response.value?.json()) as SuccessResponse<TAccountStatus>;
+        if (response.ok) {
+            const json = (await response.json()) as SuccessResponse<TAccountStatus>;
 
-            console.log('!!! json', json); // TODO: remove
-
-            // TODO: тут еще должны положить в стор данные
-            // accountStatusStore.setAuthorization(json.data);
+            AccountStatusStore.getInstance().setAccount(json.data);
+            navigate('/');
         }
-    }, [email, password]);
+    }, [email, password, navigate]);
 
     const onChangeEmail = useCallback((event: ChangeEvent<HTMLInputElement>) => {
         setEmail(event.target.value);

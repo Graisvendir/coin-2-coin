@@ -1,5 +1,5 @@
 import { AccountStatusRequest, SuccessResponse, TAccountStatus } from '~/shared/api';
-import { useAccountStatusStore } from '~/entities/account-status';
+import { AccountStatusStore } from '../model/account-status-store.ts';
 
 /**
  * Проверка аккаунта пользователя.
@@ -7,13 +7,13 @@ import { useAccountStatusStore } from '~/entities/account-status';
  * Сохраним его в стор.
  */
 export async function checkAccountStatus() {
-    const { setAuthorization } = useAccountStatusStore();
+    const accountStatusStore = AccountStatusStore.getInstance();
 
-    const { response } = await AccountStatusRequest.load();
+    const response = await AccountStatusRequest.load();
 
-    if (response.value?.ok) {
-        const json = (await response.value?.json()) as SuccessResponse<TAccountStatus>;
+    if (response.ok) {
+        const json = (await response.json()) as SuccessResponse<TAccountStatus>;
 
-        setAuthorization(json.data);
+        accountStatusStore.setAccount(json.data);
     }
 }

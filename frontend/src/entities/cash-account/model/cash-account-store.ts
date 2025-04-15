@@ -1,28 +1,36 @@
-import { defineStore } from 'pinia';
-import { computed, ref } from 'vue';
-import {TCashAccount} from '~/shared/api';
+import { action, computed, observable } from 'mobx';
+import { TCashAccount } from '~/shared/api';
 
 /**
  * Стор для хранения счетов
  */
-export const useCashAccountsStore = defineStore('cashAccounts', () => {
-    const cashAccounts = ref<TCashAccount[]>([]);
+export class CashAccountsStore {
+    @observable cashAccounts: TCashAccount[] = [];
 
-    function setCashAccounts(cashAccountList: TCashAccount[]) {
-        cashAccounts.value = cashAccountList;
+    private static instance: CashAccountsStore;
+
+    static getInstance() {
+        if (!CashAccountsStore.instance) {
+            CashAccountsStore.instance = new CashAccountsStore();
+        }
+
+        return CashAccountsStore.instance;
     }
-    const defaultCashAccount = computed(() => {
-        if (!cashAccounts.value.length) {
+
+    private constructor() {
+    }
+
+    @computed
+    get defaultCashAccount() {
+        if (!this.cashAccounts.length) {
             return undefined;
         }
 
-        return cashAccounts.value[0];
-    });
+        return this.cashAccounts[0];
+    }
 
-    return {
-        cashAccounts,
-        defaultCashAccount,
-
-        setCashAccounts,
-    };
-});
+    @action
+    setCashAccounts(cashAccountList: TCashAccount[]) {
+        this.cashAccounts = cashAccountList;
+    }
+}
