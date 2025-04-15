@@ -1,11 +1,11 @@
-import { action, computed, observable } from 'mobx';
+import { action, computed, makeObservable, observable } from 'mobx';
 import { TCashAccount } from '~/shared/api';
 
 /**
  * Стор для хранения счетов
  */
 export class CashAccountsStore {
-    @observable cashAccounts: TCashAccount[] = [];
+    cashAccounts: TCashAccount[] = [];
 
     private static instance: CashAccountsStore;
 
@@ -18,9 +18,14 @@ export class CashAccountsStore {
     }
 
     private constructor() {
+        makeObservable(this, {
+            cashAccounts: observable,
+            defaultCashAccount: computed,
+            setCashAccounts: action,
+            addCashAccount: action,
+        })
     }
 
-    @computed
     get defaultCashAccount() {
         if (!this.cashAccounts.length) {
             return undefined;
@@ -29,8 +34,29 @@ export class CashAccountsStore {
         return this.cashAccounts[0];
     }
 
-    @action
     setCashAccounts(cashAccountList: TCashAccount[]) {
         this.cashAccounts = cashAccountList;
+    }
+
+    addCashAccount(cashAccount: TCashAccount) {
+        this.cashAccounts = this.cashAccounts.concat([cashAccount]);
+    }
+
+    updateCashAccount(cashAccountToUpdate: TCashAccount) {
+        const index = this.cashAccounts.findIndex(cashAccount => cashAccount.id === cashAccountToUpdate.id);
+
+        if (index === -1) {
+            return;
+        }
+
+        this.cashAccounts = [
+            ...this.cashAccounts.slice(0, index),
+            cashAccountToUpdate,
+            ...this.cashAccounts.slice(index + 1),
+        ];
+    }
+
+    deleteCashAccount(id: number) {
+        this.cashAccounts = this.cashAccounts.filter(item => item.id !== id);
     }
 }

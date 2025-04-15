@@ -1,4 +1,4 @@
-import AddCashAccount from './ui/AddCashAccount.vue';
-import EditableCashAccount from './ui/EditableCashAccount.vue';
+// import AddCashAccount from './ui/AddCashAccount.vue';
+export { EditableCashAccount } from './ui/EditableCashAccount.tsx';
 
-export { AddCashAccount, EditableCashAccount };
+// export { AddCashAccount };

@@ -1,5 +1,5 @@
 import { SuccessResponse, TCashAccount, CashAccountRequest } from '~/shared/api';
-import { useCashAccountsStore } from '~/entities/cash-account';
+import { CashAccountsStore } from '~/entities/cash-account';
 
 
 /**
@@ -8,32 +8,29 @@ import { useCashAccountsStore } from '~/entities/cash-account';
  * @param name
  */
 export async function addCashAccount(name: string) {
-    const { response } = await CashAccountRequest.create(name);
+    const response = await CashAccountRequest.create(name);
 
-    if (response.value?.ok) {
-        const json = (await response.value?.json()) as SuccessResponse<TCashAccount>;
-        const cashAccountsStore = useCashAccountsStore();
+    if (response.ok) {
+        const json = (await response.json()) as SuccessResponse<TCashAccount>;
 
-        cashAccountsStore.cashAccounts.push(json.data);
+        CashAccountsStore.getInstance().addCashAccount(json.data);
     }
 }
 
 export async function updateCashAccount(cashAccount: TCashAccount, name: string) {
-    const { response } = await CashAccountRequest.update(cashAccount.id, name);
+    const response = await CashAccountRequest.update(cashAccount.id, name);
 
-    if (response.value?.ok) {
-        cashAccount.name = name;
+    if (response.ok) {
+        const json = (await response.json()) as SuccessResponse<TCashAccount>;
+
+        CashAccountsStore.getInstance().updateCashAccount(json.data);
     }
 }
 
 export async function deleteCashAccount(id: number) {
-    const { response } = await CashAccountRequest.delete(id);
+    const response = await CashAccountRequest.delete(id);
 
-    if (response.value?.ok) {
-        const cashAccountsStore = useCashAccountsStore();
-
-        cashAccountsStore.setCashAccounts(
-            cashAccountsStore.cashAccounts.filter(item => item.id !== id),
-        );
+    if (response.ok) {
+        CashAccountsStore.getInstance().deleteCashAccount(id);
     }
 }

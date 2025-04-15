@@ -5,7 +5,7 @@ export class CashAccountRequest {
      * Загрузка списка счетов
      */
     static async load() {
-        return apiFetch('/cash-account').json().get();
+        return apiFetch('/cash-account');
     }
 
     /**
@@ -13,18 +13,26 @@ export class CashAccountRequest {
      * @param name
      */
     static async create(name: string) {
-        return apiFetch('/cash-account').json().post({
-            name,
+        return apiFetch('/cash-account', {
+            method: 'POST',
+            body: JSON.stringify({
+                name,
+            })
         });
     }
 
     static async update(id: number, name: string) {
-        return apiFetch(`/cash-account/${id}`).json().put({
-            name,
+        return apiFetch(`/cash-account/${id}`, {
+            method: 'PUT',
+            body: JSON.stringify({
+                name,
+            })
         });
     }
 
     static async delete(id: number) {
-        return apiFetch(`/cash-account/${id}`).json().delete();
+        return apiFetch(`/cash-account/${id}`, {
+            method: 'DELETE',
+        });
     }
 }

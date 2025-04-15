@@ -7,7 +7,6 @@ import { Cookie } from '../utils';
  */
 async function refreshCsrfToken() {
     await fetch(backendApiBaseUrl + '/csrf-cookie');
-    // await useFetch(backendApiBaseUrl + '/csrf-cookie').get().json();
 }
 
 /**
@@ -32,15 +31,12 @@ async function getToken() {
 export async function apiFetch(url: string, options?: RequestInit) {
     const token = await getToken();
 
-    console.log('!!!!!! token', token); // TODO: remove console.log
-
     return fetch(
         backendApiBaseUrl + url,
         {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                // 'X-Requested-With': 'XMLHttpRequest',
                 'X-XSRF-TOKEN': token,
             },
             mode: 'cors',
