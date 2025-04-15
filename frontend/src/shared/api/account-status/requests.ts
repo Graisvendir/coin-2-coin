@@ -5,7 +5,7 @@ export class AccountStatusRequest {
      * Загрузка статуса аккаунта
      */
     static async load() {
-        return apiFetch('/account-status').json().get();
+        return apiFetch('/account-status');
     }
 
     /**
@@ -14,9 +14,12 @@ export class AccountStatusRequest {
      * @param password
      */
     static async register(email: string, password: string) {
-        return apiFetch('/register').json().post({
-            email,
-            password,
+        return apiFetch('/register', {
+            method: 'POST',
+            body: JSON.stringify({
+                email,
+                password,
+            })
         });
     }
 
@@ -39,6 +42,8 @@ export class AccountStatusRequest {
      * Разавторизация пользователя
      */
     static async logout() {
-        return apiFetch('/logout').json().post();
+        return apiFetch('/logout', {
+            method: 'POST',
+        });
     }
 }
