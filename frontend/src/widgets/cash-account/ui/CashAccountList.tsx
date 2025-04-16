@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { EditableCashAccount } from '~/features/edit-cash-accounts';
+import { AddCashAccount, EditableCashAccount } from '~/features/edit-cash-accounts';
 import './CashAccountList.less';
 import { CashAccountsStore, loadCashAccounts } from '~/entities/cash-account';
 import { useEffect } from 'react';
@@ -30,8 +30,8 @@ export const CashAccountList = observer(() => {
                     />
                 })
             }
+            <AddCashAccount />
         </div>
-        {/*<AddCashAccount/>*/}
     </div>;
 });
 

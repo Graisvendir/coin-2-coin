@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { CashAccount } from '~/entities/cash-account';
 import { TCashAccount } from '~/shared/api';
-import { KeyboardEvent, useCallback, useRef, useState } from 'react';
+import { KeyboardEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { deleteCashAccount, updateCashAccount } from '../lib/update-cash-account.ts';
 import { Icon, IconEnum } from '~/shared/ui';
 import './EditableCashAccount.less';
@@ -16,10 +16,6 @@ export const EditableCashAccount = observer(({ cashAccount }: Props) => {
 
     const showOrHideForm = useCallback(() => {
         setFormVisibility(!showForm);
-
-        if (showForm) {
-            inputRef.current?.focus();
-        }
     }, [showForm]);
 
     const save = useCallback(() => {
@@ -30,7 +26,7 @@ export const EditableCashAccount = observer(({ cashAccount }: Props) => {
         }
 
         setFormVisibility(false);
-    }, [cashAccount.name]);
+    }, [cashAccount]);
 
     const deleteItem = useCallback(() => {
         deleteCashAccount(cashAccount.id);
@@ -44,6 +40,12 @@ export const EditableCashAccount = observer(({ cashAccount }: Props) => {
             save();
         }
     }, [save]);
+
+    useEffect(() => {
+        if (showForm && inputRef.current) {
+            inputRef.current?.focus();
+        }
+    }, [inputRef, showForm]);
 
     return <CashAccount
         cashAccount={cashAccount}
