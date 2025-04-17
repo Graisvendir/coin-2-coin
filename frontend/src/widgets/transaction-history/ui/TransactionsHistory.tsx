@@ -15,9 +15,8 @@ export const TransactionsHistory = observer(() => {
     const [transactionList, setTransactionList] = useState<TAccountTransaction[]>([]);
     const [moreLink, setMoreLink] = useState<string | undefined>(undefined);
 
-    const load = useCallback(async (event?: MouseEvent) => {
-        event?.preventDefault();
-        const response = await AccountTransactionRequest.load(moreLink);
+    const load = useCallback(async (link?: string) => {
+        const response = await AccountTransactionRequest.load(link);
 
         if (!response.ok) {
             return;
@@ -29,12 +28,23 @@ export const TransactionsHistory = observer(() => {
             return;
         }
 
-        setTransactionList([
-            ...transactionList,
-            ...jsonResponse.data.map(item => AccountTransactionFn(item)),
-        ]);
+        const transactionsFromResponse = jsonResponse.data.map(item => AccountTransactionFn(item));
+
+        const newTransactionsState = link
+            ? [
+                ...transactionList,
+                ...transactionsFromResponse,
+            ]
+            : transactionsFromResponse;
+
+        setTransactionList(newTransactionsState);
         setMoreLink(jsonResponse.links.next);
-    }, [transactionList, moreLink]);
+    }, [transactionList]);
+
+    const loadNext = useCallback(async (event?: MouseEvent) => {
+        event?.preventDefault();
+        load(moreLink);
+    }, [load, moreLink]);
 
     /**
      * Отдаст дату, которую будем выводить для группировки транзакций по дням
@@ -65,7 +75,6 @@ export const TransactionsHistory = observer(() => {
 
     useEffect(() => {
         if (accountTransactionsStore.needReloadTransactionsPage) {
-            setMoreLink(undefined);
             load();
             accountTransactionsStore.reloaded();
         }
@@ -89,7 +98,7 @@ export const TransactionsHistory = observer(() => {
         <a
             v-if="moreLink"
             href={moreLink}
-            onClick={load}
+            onClick={loadNext}
         >
             Следующие
         </a>

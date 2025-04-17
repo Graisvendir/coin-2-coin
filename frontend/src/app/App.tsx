@@ -7,6 +7,7 @@ import { AccountStatusStore, checkAccountStatus } from '~/entities/account-statu
 import { AccountStatus } from '~/widgets/account-status';
 import { CashAccountList } from '~/widgets/cash-account';
 import { Transactions } from '~/pages/transactions';
+import { loadCashAccounts } from '~/entities/cash-account';
 
 export function App() {
     const [isReady, setReady] = useState(false);
@@ -24,6 +25,9 @@ export function App() {
             // TODO: сделать нормальную мидлварь
             if (!AccountStatusStore.getInstance().isAuth) {
                 navigate('/login');
+            } else {
+                // догрузим список счетов пользователя
+                await loadCashAccounts();
             }
 
             setReady(true);

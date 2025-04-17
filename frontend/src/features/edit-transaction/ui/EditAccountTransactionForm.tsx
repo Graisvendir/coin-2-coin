@@ -1,100 +1,104 @@
+import { ChangeEvent, FormEvent, useCallback, useState } from 'react';
 import './EditAccountTransactionForm.less';
+import { TAccountTransaction } from '~/shared/api';
+import { DateTime } from '~/shared/utils';
+import { CashAccountsStore } from '~/entities/cash-account';
+import { observer } from 'mobx-react-lite';
+import {
+    addAccountTransaction,
+    updateAccountTransaction
+} from '~/features/edit-transaction/lib/account-transaction-controller.ts';
+import { AccountTransactionsStore } from '~/entities/account-transaction';
 
-export const EditAccountTransactionForm = () => {
+interface Props {
+    transaction?: TAccountTransaction;
+}
 
-    const [] = useState();
-    const [name, setName] = ref<string>(transaction?.name || '');
-    const transactionDate = transaction?.created_at || new DateTime();
-    const createdAt = ref<string>(transactionDate.format('YYYY-MM-DDTHH:mm:ss'));
-    const amount = ref<number>(transaction?.amount || 0);
-    const cashAccountId = ref<number>(transaction?.cash_account_id || defaultCashAccount?.value?.id || 0);
+export const EditAccountTransactionForm = observer(({transaction}: Props) => {
+    const cashAccountStore = CashAccountsStore.getInstance();
+    const accountTransactionsStore = AccountTransactionsStore.getInstance();
 
-    async function save() {
-        const transactionFromInputs = {
-            name: name.value,
-            cash_account_id: cashAccountId.value,
-            created_at: createdAt.value,
-            amount: amount.value,
-        };
+    const [editedTransaction, setEditedTransaction] = useState({
+        name: transaction?.name ?? '',
+        created_at: (transaction?.created_at || new DateTime()).format('YYYY-MM-DDTHH:mm:ss'),
+        amount: transaction?.amount || 0,
+        cash_account_id: transaction?.cash_account_id || cashAccountStore.defaultCashAccount?.id || 0
+    });
+
+    const save = useCallback(async (event: FormEvent) => {
+        event.preventDefault();
 
         const response = transaction
-            ? await updateAccountTransaction(transaction, transactionFromInputs)
-            : await addAccountTransaction(transactionFromInputs);
+            ? await updateAccountTransaction(transaction, editedTransaction)
+            : await addAccountTransaction(editedTransaction);
 
-        if (response.value?.ok) {
-            closeModal?.();
-            const store = useAccountTransactionStore();
-            store.updateTransaction();
+        if (response.ok) {
+            accountTransactionsStore.updateTransaction();
         }
-    }
+    }, [editedTransaction]);
 
-    return <form class="transaction-form" onSubmit={save}>
+    const onChange = useCallback((field: string) => {
+        return (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+            setEditedTransaction({
+                ...editedTransaction,
+                [field]: event.target.value
+            })
+        }
+    }, [editedTransaction]);
+
+    return <form className="transaction-form" onSubmit={save}>
         <div>
-        <input
-            name="name"
-            placeholder="Ну и куда ты бабки потратил?"
-            required
-        >
+            <input
+                name="name"
+                placeholder="Ну и куда ты бабки потратил?"
+                required
+                defaultValue={editedTransaction.name}
+                onChange={onChange('name')}
+            />
         </div>
         <div>
             <input
-                v-model="createdAt"
                 name="created_at"
                 type="datetime-local"
                 placeholder="А когда?"
                 required
-            >
+                defaultValue={editedTransaction.created_at}
+                onChange={onChange('created_at')}
+
+            />
         </div>
         <div>
             <input
-                v-model="amount"
                 name="amount"
                 type="number"
                 placeholder="Сколько-сколько?"
                 required
-            >
+                defaultValue={editedTransaction.amount}
+                onChange={onChange('amount')}
+            />
         </div>
         <div>
-            <select v-model="cashAccountId" name="cash_account_id" required>
-                <option v-for="cashAccount in cashAccounts" :key="cashAccount.id" :value="cashAccount.id">
-                {{ cashAccount.name }}
-            </option>
-        </select>
-    </div>
-        <button class="btn" type="submit">
+            <select
+                name="cash_account_id"
+                required
+                defaultValue={editedTransaction.cash_account_id}
+                onChange={onChange('cash_account_id')}
+            >
+                {
+                    cashAccountStore.cashAccounts.map(cashAccount => {
+                        return <option
+                            key={cashAccount.id}
+                            value={cashAccount.id}
+                        >
+                            { cashAccount.name }
+                        </option>
+                    })
+                }
+
+            </select>
+        </div>
+        <button className="btn" type="submit">
             Сохранить
         </button>
     </form>;
-};
-
-<script setup lang="ts">
-    import { inject, ref } from 'vue';
-    import { TAccountTransaction } from '~/shared/api';
-    import {
-        addAccountTransaction,
-        updateAccountTransaction,
-    } from '../lib/account-transaction-controller.ts';
-    import { useCashAccountsStore } from '~/entities/cash-account';
-    import { storeToRefs } from 'pinia';
-    import { useAccountTransactionStore } from '~/entities/account-transaction';
-    import { closeModelInjectionKey } from '~/shared/ui';
-    import { DateTime } from '~/shared/utils';
-
-    type TProps = {
-        transaction?: TAccountTransaction;
-    }
-
-    const { transaction } = defineProps<TProps>();
-    const cashAccountsStore = useCashAccountsStore();
-    const { cashAccounts, defaultCashAccount } = storeToRefs(cashAccountsStore);
-
-    const name = ref<string>(transaction?.name || '');
-    const transactionDate = transaction?.created_at || new DateTime();
-    const createdAt = ref<string>(transactionDate.format('YYYY-MM-DDTHH:mm:ss'));
-    const amount = ref<number>(transaction?.amount || 0);
-    const cashAccountId = ref<number>(transaction?.cash_account_id || defaultCashAccount?.value?.id || 0);
-
-    const closeModal = inject(closeModelInjectionKey);
-
-</script>
-
+});
