@@ -1,12 +1,40 @@
-<template>
-    <form class="transaction-form" @submit.prevent="save">
+import './EditAccountTransactionForm.less';
+
+export const EditAccountTransactionForm = () => {
+
+    const [] = useState();
+    const [name, setName] = ref<string>(transaction?.name || '');
+    const transactionDate = transaction?.created_at || new DateTime();
+    const createdAt = ref<string>(transactionDate.format('YYYY-MM-DDTHH:mm:ss'));
+    const amount = ref<number>(transaction?.amount || 0);
+    const cashAccountId = ref<number>(transaction?.cash_account_id || defaultCashAccount?.value?.id || 0);
+
+    async function save() {
+        const transactionFromInputs = {
+            name: name.value,
+            cash_account_id: cashAccountId.value,
+            created_at: createdAt.value,
+            amount: amount.value,
+        };
+
+        const response = transaction
+            ? await updateAccountTransaction(transaction, transactionFromInputs)
+            : await addAccountTransaction(transactionFromInputs);
+
+        if (response.value?.ok) {
+            closeModal?.();
+            const store = useAccountTransactionStore();
+            store.updateTransaction();
+        }
+    }
+
+    return <form class="transaction-form" onSubmit={save}>
         <div>
-            <input
-                v-model="name"
-                name="name"
-                placeholder="Ну и куда ты бабки потратил?"
-                required
-            >
+        <input
+            name="name"
+            placeholder="Ну и куда ты бабки потратил?"
+            required
+        >
         </div>
         <div>
             <input
@@ -29,15 +57,15 @@
         <div>
             <select v-model="cashAccountId" name="cash_account_id" required>
                 <option v-for="cashAccount in cashAccounts" :key="cashAccount.id" :value="cashAccount.id">
-                    {{ cashAccount.name }}
-                </option>
-            </select>
-        </div>
+                {{ cashAccount.name }}
+            </option>
+        </select>
+    </div>
         <button class="btn" type="submit">
             Сохранить
         </button>
-    </form>
-</template>
+    </form>;
+};
 
 <script setup lang="ts">
     import { inject, ref } from 'vue';
@@ -68,31 +96,5 @@
 
     const closeModal = inject(closeModelInjectionKey);
 
-    async function save() {
-        const transactionFromInputs = {
-            name: name.value,
-            cash_account_id: cashAccountId.value,
-            created_at: createdAt.value,
-            amount: amount.value,
-        };
-
-        const response = transaction
-            ? await updateAccountTransaction(transaction, transactionFromInputs)
-            : await addAccountTransaction(transactionFromInputs);
-
-        if (response.value?.ok) {
-            closeModal?.();
-            const store = useAccountTransactionStore();
-            store.updateTransaction();
-        }
-    }
 </script>
 
-<style>
-
-.transaction-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-</style>
