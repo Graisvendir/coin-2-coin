@@ -31,8 +31,12 @@ async function getToken() {
 export async function apiFetch(url: string, options?: RequestInit) {
     const token = await getToken();
 
+    const finalUrl = url.indexOf(backendApiBaseUrl) === -1
+        ? backendApiBaseUrl + url
+        : url;
+
     return fetch(
-        backendApiBaseUrl + url,
+        finalUrl,
         {
             headers: {
                 'Accept': 'application/json',

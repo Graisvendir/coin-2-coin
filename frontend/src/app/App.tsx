@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { AccountStatusStore, checkAccountStatus } from '~/entities/account-status';
 import { AccountStatus } from '~/widgets/account-status';
 import { CashAccountList } from '~/widgets/cash-account';
+import { Transactions } from '~/pages/transactions';
 
 export function App() {
     const [isReady, setReady] = useState(false);
@@ -43,7 +44,7 @@ export function App() {
         </div>
         <div className="layout__main">
             <Routes>
-                <Route index element={<div>Ну шо, аниме?</div>} />
+                <Route index element={<Transactions />} />
                 <Route path="login" element={<LoginPage />} />
                 <Route path="register" element={<RegisterPage />} />
             </Routes>

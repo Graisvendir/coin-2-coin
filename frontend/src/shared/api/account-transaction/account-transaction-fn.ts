@@ -5,7 +5,7 @@ import { array, date, nullable, number, object, string } from '~/shared/utils';
 /**
  * Данные о транзакции по счету
  */
-export const AccountTransaction = object({
+export const AccountTransactionFn = object({
     id: number,
     cash_account_id: number,
     name: string,
@@ -15,6 +15,6 @@ export const AccountTransaction = object({
     tags: array(Tag),
 });
 
-export type TAccountTransaction = ReturnType<typeof AccountTransaction>;
+export type TAccountTransaction = ReturnType<typeof AccountTransactionFn>;
 
 export type TPaginatedAccountTransactions = TPagination<TAccountTransaction>;

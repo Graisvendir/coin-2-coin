@@ -1,23 +1,35 @@
-import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { action, makeObservable, observable } from 'mobx';
 
 /**
- * Стор для хранения данных о транзакциях
+ * Стор для транзакций
  */
-export const useAccountTransactionStore = defineStore('accountTransactions', () => {
-    const needReload = ref<boolean>(false);
+export class AccountTransactionsStore {
+    needReloadTransactionsPage = false;
 
-    function updateTransaction() {
-        needReload.value = true;
+
+    private static instance: AccountTransactionsStore;
+
+    static getInstance() {
+        if (!AccountTransactionsStore.instance) {
+            AccountTransactionsStore.instance = new AccountTransactionsStore();
+        }
+
+        return AccountTransactionsStore.instance;
     }
 
-    function reloaded() {
-        needReload.value = false;
+    private constructor() {
+        makeObservable(this, {
+            needReloadTransactionsPage: observable,
+            updateTransaction: action,
+            reloaded: action,
+        })
     }
 
-    return {
-        needReload,
-        updateTransaction,
-        reloaded,
-    };
-});
+    updateTransaction() {
+        this.needReloadTransactionsPage = true;
+    }
+
+    reloaded() {
+        this.needReloadTransactionsPage = false;
+    }
+}

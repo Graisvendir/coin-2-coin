@@ -1,3 +1,1 @@
-import Transactions from './ui/Transactions.vue';
-
-export { Transactions };
+export { Transactions } from './ui/Transactions.tsx';

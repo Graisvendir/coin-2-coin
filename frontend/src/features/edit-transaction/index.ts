@@ -1,3 +1,1 @@
-import AddTransactionButton from './ui/AddTransactionButton.vue';
-
-export { AddTransactionButton };
+export { AddTransactionButton } from './ui/AddTransactionButton.tsx';

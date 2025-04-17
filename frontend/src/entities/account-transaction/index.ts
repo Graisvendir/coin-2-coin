@@ -1,4 +1,3 @@
-import AccountTransaction from './ui/AccountTransaction.vue';
 
-export { useAccountTransactionStore } from './model/account-transactions-store.ts';
-export { AccountTransaction };
+export { AccountTransactionsStore } from './model/account-transactions-store.ts';
+export { AccountTransaction } from './ui/AccountTransaction.tsx';
